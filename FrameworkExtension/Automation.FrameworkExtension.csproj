@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{463F8EE2-5570-40AA-9F85-58473DEF51FC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Automation.FrameworkExtension</RootNamespace>
+    <AssemblyName>Automation.FrameworkExtension</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="ParallelExtensionsExtras, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSFT.ParallelExtensionsExtras.1.2.0\lib\ParallelExtensionsExtras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="common\LogLevel.cs" />
+    <Compile Include="elements\AxisImpl.cs" />
+    <Compile Include="elements\CyImpl.cs" />
+    <Compile Include="elements\DiImpl.cs" />
+    <Compile Include="elements\DoImpl.cs" />
+    <Compile Include="elements\VioImpl.cs" />
+    <Compile Include="FrameworkExtenion.cs" />
+    <Compile Include="motionDriver\IGioWrapper.cs" />
+    <Compile Include="motionDriver\IMotionCard.cs" />
+    <Compile Include="platforms\calibrations\AutoCalib.cs" />
+    <Compile Include="platforms\calibrations\AutoCalibForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="platforms\calibrations\AutoCalibForm.Designer.cs">
+      <DependentUpon>AutoCalibForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="common\UserSettings.cs" />
+    <Compile Include="elementInterfaces\IAxisEx.cs" />
+    <Compile Include="elementInterfaces\ICylinderEx.cs" />
+    <Compile Include="elementInterfaces\IDiEx.cs" />
+    <Compile Include="elementInterfaces\IDoEx.cs" />
+    <Compile Include="elementInterfaces\IVioEx.cs" />
+    <Compile Include="motionDriver\IMotionWrapper.cs" />
+    <Compile Include="MotionExtensionEx.cs" />
+    <Compile Include="platforms\platformBase\PlatformEx.cs" />
+    <Compile Include="motionDriver\MotionCardWrapper.cs" />
+    <Compile Include="platforms\points\IPos.cs" />
+    <Compile Include="platforms\points\PosXYZUVW.cs" />
+    <Compile Include="platforms\xyzPlatform\PlatformXyz.cs" />
+    <Compile Include="platforms\xyzPlatform\PlatformXyzControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="platforms\xyzPlatform\PlatformXyzControl.Designer.cs">
+      <DependentUpon>PlatformXyzControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="platforms\points\PosXYZ.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="motionDriver\IOCardWrapper.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="stateMachine\BaseObject.cs" />
+    <Compile Include="stateMachine\MachineStateExtension.cs" />
+    <Compile Include="stateMachine\StationStateControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="stateMachine\StationStateControl.Designer.cs">
+      <DependentUpon>StationStateControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="stateMachine\TaskCancelException.cs" />
+    <Compile Include="stateMachine\TaskState.cs" />
+    <Compile Include="stateMachine\UserEvent.cs" />
+    <Compile Include="stateMachine\IEventHandler.cs" />
+    <Compile Include="stateMachine\StationAutoState.cs" />
+    <Compile Include="stateMachine\StationState.cs" />
+    <Compile Include="stateMachine\StateMachine.cs" />
+    <Compile Include="stateMachine\Station.cs" />
+    <Compile Include="stateMachine\StationTask.cs" />
+    <Compile Include="stateMachine\UserEventType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="platforms\calibrations\AutoCalibForm.resx">
+      <DependentUpon>AutoCalibForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="platforms\xyzPlatform\PlatformXyzControl.resx">
+      <DependentUpon>PlatformXyzControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="stateMachine\StationStateControl.resx">
+      <DependentUpon>StationStateControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
