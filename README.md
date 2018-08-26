@@ -1,8 +1,8 @@
 # AUTOMATION EQUIPMENT FRAMEWORK
 - A Simple Implementation for FAST Automation Equipment Software Develop And Simulate On IPC
--- a virtual motion card implemention
--- station task model implemention
--- basic machine logic control
+  - a virtual motion card implemention
+  - station task model implemention
+  - basic machine logic control
 
 ## v 0.0.1
 - simplified implementation from last several year software developments
