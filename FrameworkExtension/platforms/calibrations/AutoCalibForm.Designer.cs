@@ -38,6 +38,9 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(3, 44);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(395, 485);
@@ -46,6 +49,7 @@
             // 
             // buttonStartCalib
             // 
+            this.buttonStartCalib.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStartCalib.Location = new System.Drawing.Point(404, 492);
             this.buttonStartCalib.Name = "buttonStartCalib";
             this.buttonStartCalib.Size = new System.Drawing.Size(157, 66);
@@ -56,6 +60,7 @@
             // 
             // buttonStopCalib
             // 
+            this.buttonStopCalib.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStopCalib.Location = new System.Drawing.Point(615, 492);
             this.buttonStopCalib.Name = "buttonStopCalib";
             this.buttonStopCalib.Size = new System.Drawing.Size(157, 66);
@@ -73,6 +78,8 @@
             // 
             // progressBar1
             // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(3, 535);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(395, 23);
@@ -80,6 +87,8 @@
             // 
             // propertyGridCalib
             // 
+            this.propertyGridCalib.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGridCalib.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.propertyGridCalib.Location = new System.Drawing.Point(404, 96);
             this.propertyGridCalib.Name = "propertyGridCalib";

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("VirtualCardLibrary")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Automation.Base.VirtualCardLibrary")]
+[assembly: AssemblyDescription("zzz")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VirtualCardLibrary")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCompany("zzz")]
+[assembly: AssemblyProduct("Automation.Base.VirtualCardLibrary")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

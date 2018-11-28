@@ -1,43 +1,43 @@
 ﻿using System;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Automation.FrameworkExtension.common
 {
-
-    public interface IObjSerializer
-    {
-
-        object ReadXML(string file, Type t);
-
-        void WriteXML(object obj, string file, Type t);
-
-
-    }
-
-
-
     public abstract class UserSettings<T> where T : class
     {
-
-        public static IObjSerializer Serializer;
-
-
         private static object obj = new object();
         public static T Load(string file)
         {
             lock (obj)
             {
-                return Serializer.ReadXML(file, typeof(T)) as T;
+                using (var fs = new FileStream(file, FileMode.Open))
+                {
+                    return new XmlSerializer(typeof(T)).Deserialize(fs) as T;
+                }
+           
             }
         }
 
-        public virtual void Save(string environment)
+        public static T Load(string file, Type t)
         {
-            Serializer.WriteXML(this, environment, this.GetType());
+            lock (obj)
+            {
+                using (var fs = new FileStream(file, FileMode.Open))
+                {
+                    return new XmlSerializer(t).Deserialize(fs) as T;
+                }
+            }
         }
 
-        public virtual void SaveAs(string environment)
+        public virtual void Save(string file)
         {
-            Serializer.WriteXML(this, environment, typeof(T));
+            using (var fs = new FileStream(file, FileMode.OpenOrCreate))
+            {
+                new XmlSerializer(typeof(T)).Serialize(fs, this);
+            }
         }
+
+        public abstract bool CheckIfNormal();
     }
 }

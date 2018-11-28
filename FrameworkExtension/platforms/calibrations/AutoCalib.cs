@@ -12,7 +12,14 @@ namespace Automation.FrameworkExtension.platforms.calibrations
 {
     public class AutoCalib : StationTask
     {
-        public event Action<int> ProgressEvent;
+        public event Action<int> CalibProgressEvent;
+
+        public event Action<bool> CalibFinishEvent;
+
+        private bool _isNormalFinish;
+        public string CalibInfo { get; set; }
+
+        public List<string> DataList { get; set; }
 
         public AutoCalib() : base(0, "AutoCalib", null)
         {
@@ -25,10 +32,6 @@ namespace Automation.FrameworkExtension.platforms.calibrations
             DataList = new List<string>();
         }
 
-        public string CalibInfo { get; set; }
-
-        public List<string> DataList { get; set; }
-
         protected override int ResetLoop()
         {
             UninitCalib();
@@ -37,19 +40,24 @@ namespace Automation.FrameworkExtension.platforms.calibrations
 
         protected override int RunLoop()
         {
+            if (Station.RunningState != RunningState.WaitRun)
+            {
+                MessageBox.Show($"工站{Station.Name}未复位", CalibInfo, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                OnCalibFinishEvent(_isNormalFinish);
+                return -1;
+            }
+
             try
             {
-                if (Station.AutoState != StationAutoState.WaitRun)
-                {
-                    MessageBox.Show($"工站{Station.Name}未复位", CalibInfo, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return -1;
-                }
+                _isNormalFinish = true;
+
+                CheckCalibParams();
                 Log($"CALIBRATION RUN START...");
                 ClearData();
+                OnCalibProgress(1);
 
-                UpdateProgress(1);
                 InitCalib();
-                UpdateProgress(5);
+                OnCalibProgress(5);
 
                 if (MessageBox.Show($"标定初始化完成. 开始{CalibInfo}标定?", CalibInfo, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
                 {
@@ -57,13 +65,13 @@ namespace Automation.FrameworkExtension.platforms.calibrations
                 }
 
                 DoCalib();
-                UpdateProgress(95);
 
+                OnCalibProgress(95);
                 SaveData();
-
             }
             catch (Exception e)
             {
+                _isNormalFinish = false;
                 Log($"CALIBRATION RUN FAIL:{e.Message}");
                 MessageBox.Show($"{CalibInfo}标定运行异常:{e.Message}");
             }
@@ -72,25 +80,33 @@ namespace Automation.FrameworkExtension.platforms.calibrations
                 try
                 {
                     UninitCalib();
-                    UpdateProgress(100);
 
                     Log($"CALIBRATION RUN SUCCESS");
-
                     DisplayOutput();
                 }
                 catch (Exception e)
                 {
+                    _isNormalFinish = false;
                     MessageBox.Show($"{CalibInfo}标定复位异常:{e.Message}");
                 }
+
+                OnCalibProgress(100);
+                OnCalibFinishEvent(_isNormalFinish);
             }
 
-            UpdateProgress(100);
+
             return -1;
         }
 
-        protected virtual void UpdateProgress(int obj)
+        private void CheckCalibParams()
         {
-            ProgressEvent?.Invoke(obj);
+            var prop = this.GetType().GetProperties().ToList();
+
+            var nullProp = prop.FindAll(p => p.GetValue(this) == null && !p.Name.StartsWith("Output"));
+            if (nullProp.Count > 0)
+            {
+                throw new NullReferenceException(string.Join(",", nullProp.Select(p => p.Name)));
+            }
         }
 
         public virtual void ClearData()
@@ -103,6 +119,10 @@ namespace Automation.FrameworkExtension.platforms.calibrations
         }
 
         public virtual void DoCalib()
+        {
+        }
+
+        public virtual void UninitCalib()
         {
         }
 
@@ -130,25 +150,36 @@ namespace Automation.FrameworkExtension.platforms.calibrations
             }
         }
 
-        public virtual void UninitCalib()
-        {
-        }
-
         public virtual string DisplayOutput()
         {
             var sb = new StringBuilder();
-            var props = this.GetType().GetProperties().ToList().FindAll(p => p.GetCustomAttribute<CategoryAttribute>()?.Category == "OUTPUT");
+            var props = this.GetType().GetProperties().ToList().FindAll(p => p.Name.StartsWith("Output") || p.GetCustomAttribute<CategoryAttribute>()?.Category == "OUTPUT");
 
             foreach (var p in props)
             {
-                var str = $"{p.Name}:\r\n{p.GetValue(this)}";
-                Log(str);
-                sb.AppendLine(str);
+                sb.AppendLine($"{p.Name,35}: {p.GetValue(this)}");
             }
+            sb.AppendLine("\n-----------------Data--------------");
+            foreach (var d in DataList)
+            {
+                sb.AppendLine(d);
+            }
+            sb.AppendLine("\n-----------------Data--------------");
+
+            Log($"----------------------------------------------\n标定结果:\n{sb.ToString()}\n");
 
             return sb.ToString();
 
         }
 
+        protected virtual void OnCalibProgress(int obj)
+        {
+            CalibProgressEvent?.Invoke(obj);
+        }
+
+        protected virtual void OnCalibFinishEvent(bool obj)
+        {
+            CalibFinishEvent?.Invoke(obj);
+        }
     }
 }

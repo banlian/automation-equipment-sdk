@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Automation.FrameworkExtension.common;
+using Automation.FrameworkExtension.stateMachine;
 
 namespace Automation.FrameworkExtension.platforms.calibrations
 {
@@ -20,7 +21,8 @@ namespace Automation.FrameworkExtension.platforms.calibrations
                 textBoxCalibInfo.Text = Calib.CalibInfo;
                 textBoxCalibInfo.ReadOnly = true;
                 Calib.LogEvent += UpdateLog;
-                Calib.ProgressEvent += UpdateProgress;
+                Calib.CalibProgressEvent += UpdateCalibProgress;
+                Calib.CalibFinishEvent += OnCalibFinish;
 
                 propertyGridCalib.SelectedObject = Calib;
             }
@@ -33,6 +35,20 @@ namespace Automation.FrameworkExtension.platforms.calibrations
             progressBar1.Value = 0;
 
             _res = DialogResult.Cancel;
+        }
+
+        private void OnCalibFinish(bool result)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<bool>(OnCalibFinish), result);
+            }
+            else
+            {
+                Cursor = Cursors.Default;
+                buttonStartCalib.Enabled = true;
+                _res = result ? DialogResult.OK : DialogResult.Cancel;
+            }
         }
 
 
@@ -50,11 +66,11 @@ namespace Automation.FrameworkExtension.platforms.calibrations
         }
 
 
-        public void UpdateProgress(int progress)
+        public void UpdateCalibProgress(int progress)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new Action<int>(UpdateProgress), progress);
+                BeginInvoke(new Action<int>(UpdateCalibProgress), progress);
             }
             else
             {
@@ -72,7 +88,11 @@ namespace Automation.FrameworkExtension.platforms.calibrations
 
             progressBar1.Value = 0;
 
+            Calib.RefreshState(RunningState.WaitRun);
             Calib.Start();
+
+            Cursor = Cursors.WaitCursor;
+            buttonStartCalib.Enabled = false;
 
             _res = DialogResult.OK;
         }

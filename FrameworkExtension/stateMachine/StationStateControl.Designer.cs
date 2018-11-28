@@ -39,7 +39,9 @@
             this.dataGridViewStation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStation.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewStation.MultiSelect = false;
             this.dataGridViewStation.Name = "dataGridViewStation";
+            this.dataGridViewStation.ReadOnly = true;
             this.dataGridViewStation.RowTemplate.Height = 23;
             this.dataGridViewStation.Size = new System.Drawing.Size(354, 524);
             this.dataGridViewStation.TabIndex = 0;

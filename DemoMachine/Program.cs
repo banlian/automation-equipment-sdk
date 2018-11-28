@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using Automation.FrameworkExtension;
+using Automation.FrameworkExtension.frameworkManage;
 
 namespace DemoMachine
 {
@@ -33,8 +34,11 @@ namespace DemoMachine
             {
                 GC.Collect();
 
+                FrameworkManager.Ins.Load(@".\Config\framework.cfg");
+                FrameworkManager.Ins.Initialize();
+
+
                 //初始化
-                FrameworkExtenion.IsSimulate = true;
                 //initialize machine settings
                 Machine.DemoMachine.Ins.Load();
                 Machine.DemoMachine.Ins.Initialize();
@@ -59,6 +63,9 @@ namespace DemoMachine
                 {
                     Machine.DemoMachine.Ins.Terminate();
                     Machine.DemoMachine.Ins.Save();
+
+                    FrameworkManager.Ins.Terminate();
+                    FrameworkManager.Ins.Save(@".\Config\environment.cfg");
                 }
                 catch (Exception ex)
                 {

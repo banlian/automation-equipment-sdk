@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,8 +11,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Automation.FrameworkExtension</RootNamespace>
     <AssemblyName>Automation.FrameworkExtension</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -21,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,30 +34,26 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="ParallelExtensionsExtras, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSFT.ParallelExtensionsExtras.1.2.0\lib\ParallelExtensionsExtras.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="common\LoggerHelper.cs" />
+    <Compile Include="elementsInterfaces\IElement.cs" />
+    <Compile Include="frameworkManage\FrameworkManager.cs" />
+    <Compile Include="frameworkManage\FrameworkConfig.cs" />
+    <Compile Include="frameworkManage\FrameworkDebugForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frameworkManage\FrameworkDebugForm.Designer.cs">
+      <DependentUpon>FrameworkDebugForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="loadUtils\MachineSection.cs" />
+    <Compile Include="loadUtils\SectionKey.cs" />
+    <Compile Include="loadUtils\SectionWriter.cs" />
+    <Compile Include="loadUtils\StateMachineExtension.cs" />
     <Compile Include="common\LogLevel.cs" />
-    <Compile Include="elements\AxisImpl.cs" />
-    <Compile Include="elements\CyImpl.cs" />
-    <Compile Include="elements\DiImpl.cs" />
-    <Compile Include="elements\DoImpl.cs" />
-    <Compile Include="elements\VioImpl.cs" />
-    <Compile Include="FrameworkExtenion.cs" />
-    <Compile Include="motionDriver\IGioWrapper.cs" />
     <Compile Include="motionDriver\IMotionCard.cs" />
+    <Compile Include="common\LoginLevel.cs" />
     <Compile Include="platforms\calibrations\AutoCalib.cs" />
     <Compile Include="platforms\calibrations\AutoCalibForm.cs">
       <SubType>Form</SubType>
@@ -61,34 +62,57 @@
       <DependentUpon>AutoCalibForm.cs</DependentUpon>
     </Compile>
     <Compile Include="common\UserSettings.cs" />
-    <Compile Include="elementInterfaces\IAxisEx.cs" />
-    <Compile Include="elementInterfaces\ICylinderEx.cs" />
-    <Compile Include="elementInterfaces\IDiEx.cs" />
-    <Compile Include="elementInterfaces\IDoEx.cs" />
-    <Compile Include="elementInterfaces\IVioEx.cs" />
-    <Compile Include="motionDriver\IMotionWrapper.cs" />
-    <Compile Include="MotionExtensionEx.cs" />
-    <Compile Include="platforms\platformBase\PlatformEx.cs" />
+    <Compile Include="elements\AxisEx.cs" />
+    <Compile Include="elements\CylinderEx.cs" />
+    <Compile Include="elements\DiEx.cs" />
+    <Compile Include="elements\DoEx.cs" />
+    <Compile Include="elementsInterfaces\IAxisEx.cs" />
+    <Compile Include="elementsInterfaces\ICylinderEx.cs" />
+    <Compile Include="elementsInterfaces\IDiEx.cs" />
+    <Compile Include="elementsInterfaces\IDoEx.cs" />
+    <Compile Include="elementsInterfaces\IVioEx.cs" />
+    <Compile Include="elements\VioEx.cs" />
+    <Compile Include="loadUtils\SectionReader.cs" />
+    <Compile Include="motionDriver\MotionExtensionEx.cs" />
+    <Compile Include="platforms\motionPlatforms\PlatformEx.cs" />
     <Compile Include="motionDriver\MotionCardWrapper.cs" />
-    <Compile Include="platforms\points\IPos.cs" />
-    <Compile Include="platforms\points\PosXYZUVW.cs" />
-    <Compile Include="platforms\xyzPlatform\PlatformXyz.cs" />
-    <Compile Include="platforms\xyzPlatform\PlatformXyzControl.cs">
+    <Compile Include="platforms\motionPlatforms\PlatformMoveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="platforms\motionPlatforms\PlatformMoveForm.Designer.cs">
+      <DependentUpon>PlatformMoveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="platforms\motionPlatforms\PlatformPos.cs" />
+    <Compile Include="platforms\motionPlatforms\PlatformXyzu.cs" />
+    <Compile Include="platforms\motionPlatforms\PlatformXyzuvw.cs" />
+    <Compile Include="platforms\motionPlatforms\PosXYZU.cs" />
+    <Compile Include="platforms\motionPlatforms\PosXYZUVW.cs" />
+    <Compile Include="motionDriver\MotionRecorderHelper.cs" />
+    <Compile Include="platforms\safeCheckObjects\SafeCheckObject.cs" />
+    <Compile Include="platforms\safeCheckObjects\SafeCheckType.cs" />
+    <Compile Include="platforms\TransformParams.cs" />
+    <Compile Include="platforms\motionPlatforms\PlatformXyz.cs" />
+    <Compile Include="platforms\motionPlatforms\PlatformControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="platforms\xyzPlatform\PlatformXyzControl.Designer.cs">
-      <DependentUpon>PlatformXyzControl.cs</DependentUpon>
+    <Compile Include="platforms\motionPlatforms\PlatformControl.Designer.cs">
+      <DependentUpon>PlatformControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="platforms\points\PosXYZ.cs" />
+    <Compile Include="platforms\motionPlatforms\PosXYZ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="motionDriver\IOCardWrapper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="stateMachine\BaseObject.cs" />
-    <Compile Include="stateMachine\MachineStateExtension.cs" />
+    <Compile Include="stateMachine\MachineForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="stateMachine\MachineForm.Designer.cs">
+      <DependentUpon>MachineForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="stateMachine\RunningStateExtension.cs" />
     <Compile Include="stateMachine\StationStateControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -96,35 +120,99 @@
       <DependentUpon>StationStateControl.cs</DependentUpon>
     </Compile>
     <Compile Include="stateMachine\TaskCancelException.cs" />
-    <Compile Include="stateMachine\TaskState.cs" />
     <Compile Include="stateMachine\UserEvent.cs" />
     <Compile Include="stateMachine\IEventHandler.cs" />
-    <Compile Include="stateMachine\StationAutoState.cs" />
-    <Compile Include="stateMachine\StationState.cs" />
+    <Compile Include="stateMachine\RunningState.cs" />
+    <Compile Include="stateMachine\RunState.cs" />
     <Compile Include="stateMachine\StateMachine.cs" />
     <Compile Include="stateMachine\Station.cs" />
     <Compile Include="stateMachine\StationTask.cs" />
     <Compile Include="stateMachine\UserEventType.cs" />
+    <Compile Include="userControls\DoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="userControls\DoControl.Designer.cs">
+      <DependentUpon>DoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="userControls\CylinderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="userControls\CylinderControl.Designer.cs">
+      <DependentUpon>CylinderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="userControls\IFrameworkControl.cs" />
+    <Compile Include="userControls\VioControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="userControls\VioControl.Designer.cs">
+      <DependentUpon>VioControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="userControls\DiControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="userControls\DiControl.Designer.cs">
+      <DependentUpon>DiControl.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="frameworkManage\FrameworkDebugForm.resx">
+      <DependentUpon>FrameworkDebugForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="platforms\calibrations\AutoCalibForm.resx">
       <DependentUpon>AutoCalibForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="platforms\xyzPlatform\PlatformXyzControl.resx">
-      <DependentUpon>PlatformXyzControl.cs</DependentUpon>
+    <EmbeddedResource Include="platforms\motionPlatforms\PlatformControl.resx">
+      <DependentUpon>PlatformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="platforms\motionPlatforms\PlatformMoveForm.resx">
+      <DependentUpon>PlatformMoveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="stateMachine\MachineForm.resx">
+      <DependentUpon>MachineForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="stateMachine\StationStateControl.resx">
       <DependentUpon>StationStateControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="userControls\DoControl.resx">
+      <DependentUpon>DoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="userControls\CylinderControl.resx">
+      <DependentUpon>CylinderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="userControls\VioControl.resx">
+      <DependentUpon>VioControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="userControls\DiControl.resx">
+      <DependentUpon>DiControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Net.Compilers">
+      <Version>2.10.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MSFT.ParallelExtensionsExtras">
+      <Version>1.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
