@@ -165,7 +165,7 @@ namespace Automation.FrameworkExtension.loadUtils
                         {
                             IAxisEx axis = new AxisEx();
                             axis.Import(line, machine);
-                            axis = machine.Find<IAxisEx>(axis.Name);
+                            axis = machine.Find<AxisEx>(axis.Name);
 
                             var platform = machine.Platforms.Values.FirstOrDefault(p => p.Name == IndentSection);
                             if (platform != null)

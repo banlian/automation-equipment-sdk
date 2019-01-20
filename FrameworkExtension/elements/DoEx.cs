@@ -53,7 +53,7 @@ namespace Automation.FrameworkExtension.elements
 
             int i = 0;
             int id = int.Parse(data[i++]);
-
+            Id = id;
             Name = data[i++];
             Type = (DoType)Enum.Parse(typeof(DoType), data[i++]);
             Description = data[i++];

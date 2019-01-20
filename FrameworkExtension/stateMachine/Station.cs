@@ -56,7 +56,7 @@ namespace Automation.FrameworkExtension.stateMachine
         /// <summary>
         /// 常开的暂停信号
         /// </summary>
-        public Dictionary<int, IDiEx> PauseSignals { get; } = new Dictionary<int, IDiEx>();
+        public Dictionary<int, DiEx> PauseSignals { get; } = new Dictionary<int, DiEx>();
 
 
         /// <summary>
@@ -375,9 +375,9 @@ namespace Automation.FrameworkExtension.stateMachine
                         if (data.Length == 7)
                         {
                             //load pause signal
-                            IDiEx di = new DiEx();
+                            DiEx di = new DiEx();
                             di.Import(line, station.Machine);
-                            di = station.Machine.Find<IDiEx>(di.Name);
+                            di = station.Machine.Find<DiEx>(di.Name);
                             station.PauseSignals.Add(station.PauseSignals.Count + 1, di);
                         }
                     }

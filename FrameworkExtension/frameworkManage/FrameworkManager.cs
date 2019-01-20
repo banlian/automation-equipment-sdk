@@ -35,11 +35,11 @@ namespace Automation.FrameworkExtension.frameworkManage
 
         #region  framework debug methods
 
-        
+
 
         public static bool IsDebug = false;
 
-        private static  FrameworkDebugForm _debugForm = new FrameworkDebugForm();
+        private static FrameworkDebugForm _debugForm;
 
 
         public static void Debug(string log)
@@ -82,6 +82,7 @@ namespace Automation.FrameworkExtension.frameworkManage
                 Ins.Save(env);
             }
 
+            _debugForm = new FrameworkDebugForm();
 
             LoadMotionCardTypes(Directory.GetCurrentDirectory());
             LoadUserMotionTypes(Directory.GetCurrentDirectory());
@@ -91,7 +92,7 @@ namespace Automation.FrameworkExtension.frameworkManage
 
         #region framework reflection methods
 
-        
+
 
 
         public static Dictionary<string, Type> TaskTypes = new Dictionary<string, Type>();
@@ -109,26 +110,24 @@ namespace Automation.FrameworkExtension.frameworkManage
                 {
                     MotionCardTypes.Add(t.Name, t);
                 }
-
-                FrameworkManager.Debug($"加载运动驱动类型：\n{string.Join("\n", MotionCardTypes.Select(t => t.Key))}");
             }
+            FrameworkManager.Debug($"加载运动驱动类型：\n{string.Join("\n", MotionCardTypes.Select(t => t.Key))}");
         }
 
 
         public static void LoadUserMotionTypes(string folder)
         {
-            var files = Directory.GetFiles(folder).ToList().FindAll(f => f.EndsWith(".dll") && f.StartsWith("Automation"));
+            var files = Directory.GetFiles(folder).ToList().FindAll(f => (f.EndsWith(".dll") && f.StartsWith("Automation")) || f.EndsWith(".exe"));
             foreach (var file in files)
             {
                 var assembly = Assembly.LoadFrom(file);
-                var taskTypes = assembly.GetExportedTypes().Where(t => t.IsSubclassOf(typeof(StationTask)));
+                var taskTypes = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(StationTask)));
                 foreach (var t in taskTypes)
                 {
                     TaskTypes.Add(t.Name, t);
                 }
-
-                FrameworkManager.Debug($"加载用户定义任务类型：\n{string.Join("\n", TaskTypes.Select(t => t.Key))}");
             }
+            FrameworkManager.Debug($"加载用户定义任务类型：\n{string.Join("\n", TaskTypes.Select(t => t.Key))}");
         }
 
 

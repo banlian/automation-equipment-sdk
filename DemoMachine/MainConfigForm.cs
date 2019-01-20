@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Automation.FrameworkExtension.platforms.motionPlatforms;
+using Automation.FrameworkExtension.stateMachine;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace DemoMachine
@@ -58,6 +59,24 @@ namespace DemoMachine
                         platformControl,
                     }
                 });
+            }
+
+            tabControlMachine.TabPages.Clear();
+            foreach (var s in Machine.DemoMachine.Ins.Stations)
+            {
+                tabControlMachine.TabPages.Add(new TabPage($"{s.Value.Name} {s.Value.Description}")
+                {
+                    Controls =
+                    {
+                        new StationStateControl()
+                        {
+                            Dock = DockStyle.Fill,
+                            Station = s.Value,
+                            Machine = s.Value.Machine
+                        },
+                    }
+                });
+
             }
 
 

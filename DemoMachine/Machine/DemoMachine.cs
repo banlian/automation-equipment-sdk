@@ -11,10 +11,8 @@ using DemoMachine.Machine.Tasks;
 
 namespace DemoMachine.Machine
 {
-
     public class DemoMachineSettings : UserSettings<DemoMachineSettings>
     {
-
         public string Name { get; set; }
 
 
@@ -26,22 +24,7 @@ namespace DemoMachine.Machine
 
     public class DemoMachine : StateMachine
     {
-        #region singleton
-        private DemoMachine()
-        {
-        }
-        public static DemoMachine Ins { get; } = new DemoMachine();
-        #endregion
-
-
-
-        public MotionCardWrapper Motion1;
-        public MotionCardWrapper VIO;
-
-
-        public DemoMachineSettings Settings;
-
-
+        public DemoMachineSettings Settings { get; set; }
 
         public override void Load()
         {
@@ -67,65 +50,67 @@ namespace DemoMachine.Machine
                 Settings.Save(@".\Config\Settings.cfg");
             }
 
-            //try
-            //{
-            //    Import();
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    MessageBox.Show($"导入设备参数失败：{ex.Message}");
-            //}
-
-
-
-            //load drivers
-            Motion1 = new MotionCardWrapper(new VirtualCard());
-            VIO = new MotionCardWrapper(new VirtualCard());
-
-            MotionExs.Add(1, Motion1);
-            MotionExs.Add(2, VIO);
-
-            //load di do axis
-
-            DiExs.Add(1, new DiEx() { Driver = Motion1 });
-
-            DoExs.Add(1, new DoEx() { Driver = Motion1 });
-
-            CylinderExs.Add(1, new CylinderEx() { Driver1 = Motion1, Driver2 = Motion1 });
-
-            AxisExs.Add(1, new AxisEx() { Driver = Motion1 });
-
-            //load station task
-            var station1 = new Station(1, "Station1", this);
-            var testTask1 = new TestTask1(1, "Test1", station1);
-
-            //bind signals
-            if (!FrameworkManager.IsSimulate)
+            try
             {
-                // todo : to add signal configs
-                //estop
-                DiEstop.Add(2, new DiEx() { Driver = Motion1 });
+                Import();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"导入设备参数失败：{ex.Message}");
+            }
+        }
 
-                //start/stop/reset button
-                DiStart.Add(1, new DiEx() { Driver = Motion1 });
-                DiStop.Add(1, new DiEx() { Driver = Motion1 });
-                DiReset.Add(1, new DiEx() { Driver = Motion1 });
+        private void _import_test()
+        {
+            {
+                //load drivers
+                var Motion1 = new MotionCardWrapper(new VirtualCard());
+                var VIO = new MotionCardWrapper(new VirtualCard());
 
-                //start/stop/reset button lamp
-                DoLightGreen.Add(1, new DoEx() { Driver = Motion1 });
-                DoLightRed.Add(1, new DoEx() { Driver = Motion1 });
-                DoLightYellow.Add(1, new DoEx() { Driver = Motion1 });
+                MotionExs.Add(1, Motion1);
+                MotionExs.Add(2, VIO);
 
-                //lamp
-                DoLightGreen.Add(2, new DoEx() { Driver = Motion1 });
-                DoLightRed.Add(2, new DoEx() { Driver = Motion1 });
-                DoLightYellow.Add(2, new DoEx() { Driver = Motion1 });
-                DoBuzzer.Add(1, new DoEx() { Driver = Motion1 });
+                //load di do axis
+
+                DiExs.Add(1, new DiEx { Driver = Motion1 });
+
+                DoExs.Add(1, new DoEx { Driver = Motion1 });
+
+                CylinderExs.Add(1, new CylinderEx { Driver1 = Motion1, Driver2 = Motion1 });
+
+                AxisExs.Add(1, new AxisEx { Driver = Motion1 });
+
+                //load station task
+                var station1 = new Station(1, "Station1", this);
+                var testTask1 = new TestTask1(1, "Test1", station1);
+
+                //bind signals
+                if (!FrameworkManager.IsSimulate)
+                {
+                    // todo : to add signal configs
+                    //estop
+                    DiEstop.Add(2, new DiEx { Driver = Motion1 });
+
+                    //start/stop/reset button
+                    DiStart.Add(1, new DiEx { Driver = Motion1 });
+                    DiStop.Add(1, new DiEx { Driver = Motion1 });
+                    DiReset.Add(1, new DiEx { Driver = Motion1 });
+
+                    //start/stop/reset button lamp
+                    DoLightGreen.Add(1, new DoEx { Driver = Motion1 });
+                    DoLightRed.Add(1, new DoEx { Driver = Motion1 });
+                    DoLightYellow.Add(1, new DoEx { Driver = Motion1 });
+
+                    //lamp
+                    DoLightGreen.Add(2, new DoEx { Driver = Motion1 });
+                    DoLightRed.Add(2, new DoEx { Driver = Motion1 });
+                    DoLightYellow.Add(2, new DoEx { Driver = Motion1 });
+                    DoBuzzer.Add(1, new DoEx { Driver = Motion1 });
 
 
-                //station pause signals
-                Stations[1].PauseSignals.Add(1, new DiEx() { Driver = Motion1 });
+                    //station pause signals
+                    Stations[1].PauseSignals.Add(1, new DiEx { Driver = Motion1 });
+                }
             }
         }
 
@@ -141,14 +126,9 @@ namespace DemoMachine.Machine
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show($"导出设备参数失败：{ex.Message}");
             }
-
-
-
         }
-
 
 
         public override void Initialize()
@@ -157,10 +137,9 @@ namespace DemoMachine.Machine
             // todo
 
 
-
             //-------------------------------------
             //base start main thread, signals check
-            //base.Initialize();
+            base.Initialize();
         }
 
 
@@ -172,16 +151,16 @@ namespace DemoMachine.Machine
 
             //user define Terminate
             // todo
-
-
-
         }
 
+        #region singleton
 
+        private DemoMachine()
+        {
+        }
 
+        public static DemoMachine Ins { get; } = new DemoMachine();
 
-
-
-
+        #endregion
     }
 }

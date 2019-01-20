@@ -51,7 +51,7 @@ namespace Automation.FrameworkExtension.elements
             int i = 0;
             int id = int.Parse(data[i++]);
 
-
+            Id = id;
             Name = data[i++];
             Type = (VioType)Enum.Parse(typeof(VioType), data[i++]);
             Description = data[i++];

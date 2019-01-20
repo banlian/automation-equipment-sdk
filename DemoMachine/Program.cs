@@ -24,6 +24,7 @@ namespace DemoMachine
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.ThreadException += (sender, args) =>
             {
                 MessageBox.Show("APPLICATION EXCEPTION:" + args.Exception.Message.ToString());
@@ -34,6 +35,8 @@ namespace DemoMachine
             {
                 GC.Collect();
 
+
+                FrameworkManager.IsDebug = true;
                 FrameworkManager.Ins.Load(@".\Config\framework.cfg");
                 FrameworkManager.Ins.Initialize();
 
@@ -65,7 +68,7 @@ namespace DemoMachine
                     Machine.DemoMachine.Ins.Save();
 
                     FrameworkManager.Ins.Terminate();
-                    FrameworkManager.Ins.Save(@".\Config\environment.cfg");
+                    FrameworkManager.Ins.Save(@".\Config\framework.cfg");
                 }
                 catch (Exception ex)
                 {

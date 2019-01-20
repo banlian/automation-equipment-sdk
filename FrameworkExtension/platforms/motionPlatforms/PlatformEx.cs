@@ -841,6 +841,7 @@ namespace Automation.FrameworkExtension.platforms.motionPlatforms
                     throw new FormatException();
             }
 
+            platform.Id = id;
             platform.Name = name;
             platform.Description = desc;
 
