@@ -43,6 +43,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPageSETTINGS = new System.Windows.Forms.TabPage();
             this.propertyGridSettings = new System.Windows.Forms.PropertyGrid();
+            this.tabPageMachine = new System.Windows.Forms.TabPage();
+            this.tabControlMachine = new System.Windows.Forms.TabControl();
             this.tabControl1.SuspendLayout();
             this.tabPageIO.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -54,6 +56,7 @@
             this.tabPagePLATFORM.SuspendLayout();
             this.tabControlPlatforms.SuspendLayout();
             this.tabPageSETTINGS.SuspendLayout();
+            this.tabPageMachine.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -63,6 +66,7 @@
             this.tabControl1.Controls.Add(this.tabPageVIO);
             this.tabControl1.Controls.Add(this.tabPagePLATFORM);
             this.tabControl1.Controls.Add(this.tabPageSETTINGS);
+            this.tabControl1.Controls.Add(this.tabPageMachine);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.ItemSize = new System.Drawing.Size(60, 40);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -212,6 +216,26 @@
             this.propertyGridSettings.Size = new System.Drawing.Size(792, 402);
             this.propertyGridSettings.TabIndex = 0;
             // 
+            // tabPageMachine
+            // 
+            this.tabPageMachine.Controls.Add(this.tabControlMachine);
+            this.tabPageMachine.Location = new System.Drawing.Point(4, 44);
+            this.tabPageMachine.Name = "tabPageMachine";
+            this.tabPageMachine.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMachine.Size = new System.Drawing.Size(792, 402);
+            this.tabPageMachine.TabIndex = 5;
+            this.tabPageMachine.Text = "设备信息";
+            this.tabPageMachine.UseVisualStyleBackColor = true;
+            // 
+            // tabControlMachine
+            // 
+            this.tabControlMachine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlMachine.Location = new System.Drawing.Point(3, 3);
+            this.tabControlMachine.Name = "tabControlMachine";
+            this.tabControlMachine.SelectedIndex = 0;
+            this.tabControlMachine.Size = new System.Drawing.Size(786, 396);
+            this.tabControlMachine.TabIndex = 0;
+            // 
             // MainConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -232,6 +256,7 @@
             this.tabPagePLATFORM.ResumeLayout(false);
             this.tabControlPlatforms.ResumeLayout(false);
             this.tabPageSETTINGS.ResumeLayout(false);
+            this.tabPageMachine.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -253,5 +278,7 @@
         private Automation.FrameworkExtension.userControls.DiControl diControl1;
         private Automation.FrameworkExtension.userControls.DoControl doControl1;
         private System.Windows.Forms.PropertyGrid propertyGridSettings;
+        private System.Windows.Forms.TabPage tabPageMachine;
+        private System.Windows.Forms.TabControl tabControlMachine;
     }
 }

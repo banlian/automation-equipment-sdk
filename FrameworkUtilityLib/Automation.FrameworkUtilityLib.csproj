@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Automation.FrameworkUtilityLib</RootNamespace>
     <AssemblyName>Automation.FrameworkUtilityLib</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -78,13 +78,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FrameworkExtension\Automation.FrameworkExtension.csproj">
-      <Project>{463f8ee2-5570-40aa-9f85-58473def51fc}</Project>
-      <Name>Automation.FrameworkExtension</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\FrameworkExtension\Automation.FrameworkExtension.csproj">
+      <Project>{4c9e41b2-a358-4168-8ce1-b29169d9c180}</Project>
+      <Name>Automation.FrameworkExtension</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

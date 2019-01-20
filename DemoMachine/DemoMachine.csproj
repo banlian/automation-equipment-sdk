@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>DemoMachine</RootNamespace>
     <AssemblyName>DemoMachine</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -79,6 +79,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Config\environment.cfg" />
+    <None Include="Config\framework.cfg" />
+    <None Include="Config\machine.cfg" />
     <None Include="Config\Settings.cfg" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -104,11 +107,11 @@
       <Name>VirtualCardLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\FrameworkExtension\Automation.FrameworkExtension.csproj">
-      <Project>{463f8ee2-5570-40aa-9f85-58473def51fc}</Project>
+      <Project>{4c9e41b2-a358-4168-8ce1-b29169d9c180}</Project>
       <Name>Automation.FrameworkExtension</Name>
     </ProjectReference>
     <ProjectReference Include="..\FrameworkUtilityLib\Automation.FrameworkUtilityLib.csproj">
-      <Project>{195D7E78-9E4C-4575-A82E-582F378674EA}</Project>
+      <Project>{195d7e78-9e4c-4575-a82e-582f378674ea}</Project>
       <Name>Automation.FrameworkUtilityLib</Name>
     </ProjectReference>
   </ItemGroup>

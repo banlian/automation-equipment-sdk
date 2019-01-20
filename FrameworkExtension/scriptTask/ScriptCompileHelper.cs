@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Reflection;
 using System.Text;
+using Microsoft.CSharp;
 
 namespace Automation.FrameworkExtension.scriptTask
 {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DemoMachine.Properties {
+namespace Automation.FrameworkExtension.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
