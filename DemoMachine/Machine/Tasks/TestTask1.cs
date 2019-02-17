@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Automation.FrameworkExtension.common;
 using Automation.FrameworkExtension.stateMachine;
 
 namespace DemoMachine.Machine.Tasks
@@ -15,6 +16,7 @@ namespace DemoMachine.Machine.Tasks
 
         protected override int ResetLoop()
         {
+            Log("Running ResetLoop", LogLevel.Debug);
             //when reset finish return -1
             return -1;
         }
@@ -22,6 +24,7 @@ namespace DemoMachine.Machine.Tasks
 
         protected override int RunLoop()
         {
+            Log("Running RunLoop", LogLevel.Debug);
             //when error happens return -1, return 0 to run RunLoop again
             return -1;
         }

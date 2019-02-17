@@ -156,7 +156,7 @@ namespace Automation.FrameworkExtension.frameworkManage
         }
 
 
-        public override bool CheckIfNormal()
+        public override bool Verify()
         {
             return true;
         }

@@ -244,6 +244,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "MainConfigForm";
             this.Text = "配置";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainConfigForm_FormClosing);
             this.Load += new System.EventHandler(this.MainConfigForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPageIO.ResumeLayout(false);

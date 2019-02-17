@@ -730,7 +730,7 @@ namespace Automation.FrameworkExtension.stateMachine
             this.Serialize(file);
         }
 
-        public override bool CheckIfNormal()
+        public override bool Verify()
         {
             return true;
         }

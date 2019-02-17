@@ -32,6 +32,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.machineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.machineToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.alarmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,9 +73,42 @@
             // 
             // machineToolStripMenuItem
             // 
+            this.machineToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.machineToolStripMenuItem1,
+            this.configToolStripMenuItem,
+            this.alarmToolStripMenuItem,
+            this.logToolStripMenuItem});
             this.machineToolStripMenuItem.Name = "machineToolStripMenuItem";
-            this.machineToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
-            this.machineToolStripMenuItem.Text = "Machine";
+            this.machineToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
+            this.machineToolStripMenuItem.Text = "View";
+            // 
+            // machineToolStripMenuItem1
+            // 
+            this.machineToolStripMenuItem1.Name = "machineToolStripMenuItem1";
+            this.machineToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.machineToolStripMenuItem1.Text = "Machine";
+            this.machineToolStripMenuItem1.Click += new System.EventHandler(this.machineToolStripMenuItem1_Click);
+            // 
+            // configToolStripMenuItem
+            // 
+            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configToolStripMenuItem.Text = "Config";
+            this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
+            // 
+            // alarmToolStripMenuItem
+            // 
+            this.alarmToolStripMenuItem.Name = "alarmToolStripMenuItem";
+            this.alarmToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alarmToolStripMenuItem.Text = "Alarm";
+            this.alarmToolStripMenuItem.Click += new System.EventHandler(this.alarmToolStripMenuItem_Click);
+            // 
+            // logToolStripMenuItem
+            // 
+            this.logToolStripMenuItem.Name = "logToolStripMenuItem";
+            this.logToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logToolStripMenuItem.Text = "Log";
+            this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -94,6 +131,7 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -122,6 +160,10 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem machineToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem alarmToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
     }
 }
 

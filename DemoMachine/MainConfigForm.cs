@@ -22,6 +22,8 @@ namespace DemoMachine
 
         private void MainConfigForm_Load(object sender, EventArgs e)
         {
+            HideOnClose = true;
+
             diControl1.DiExs = Machine.DemoMachine.Ins.DiExs.Values.ToList();
             diControl1.LoadFramework();
             diControl1.FrameworkActivate();
@@ -82,6 +84,11 @@ namespace DemoMachine
 
             propertyGridSettings.SelectedObject = Machine.DemoMachine.Ins.Settings;
             propertyGridSettings.ExpandAllGridItems();
+        }
+
+        private void MainConfigForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }

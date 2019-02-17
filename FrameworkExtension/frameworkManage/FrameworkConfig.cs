@@ -31,7 +31,7 @@ namespace Automation.FrameworkExtension.frameworkManage
         public bool IsDebug { get; set; }
 
 
-        public override bool CheckIfNormal()
+        public override bool Verify()
         {
             return true;
         }

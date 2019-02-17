@@ -34,7 +34,7 @@ namespace Automation.FrameworkUtilityLib.UtilViews
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new Action<string, string, LogLevel>(UpdateLog), msg, level);
+                BeginInvoke(new Action<string, string, LogLevel>(UpdateLog), tab, msg, level);
             }
             else
             {

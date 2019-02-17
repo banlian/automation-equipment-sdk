@@ -2,7 +2,6 @@
 using System.IO;
 using System.Windows.Forms;
 using Automation.Base.VirtualCardLibrary;
-using Automation.FrameworkExtension.common;
 using Automation.FrameworkExtension.elements;
 using Automation.FrameworkExtension.frameworkManage;
 using Automation.FrameworkExtension.motionDriver;
@@ -11,19 +10,17 @@ using DemoMachine.Machine.Tasks;
 
 namespace DemoMachine.Machine
 {
-    public class DemoMachineSettings : UserSettings<DemoMachineSettings>
-    {
-        public string Name { get; set; }
-
-
-        public override bool CheckIfNormal()
-        {
-            return true;
-        }
-    }
-
     public class DemoMachine : StateMachine
     {
+        #region singleton
+
+        private DemoMachine()
+        {
+        }
+
+        public static DemoMachine Ins { get; } = new DemoMachine();
+
+        #endregion
         public DemoMachineSettings Settings { get; set; }
 
         public override void Load()
@@ -59,6 +56,22 @@ namespace DemoMachine.Machine
                 MessageBox.Show($"导入设备参数失败：{ex.Message}");
             }
         }
+
+        public override void Save()
+        {
+            //save settings
+            Settings.Save(@".\Config\Settings.cfg");
+
+            try
+            {
+                Export();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"导出设备参数失败：{ex.Message}");
+            }
+        }
+
 
         private void _import_test()
         {
@@ -115,22 +128,6 @@ namespace DemoMachine.Machine
         }
 
 
-        public override void Save()
-        {
-            //save settings
-            Settings.Save(@".\Config\Settings.cfg");
-
-            try
-            {
-                Export();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"导出设备参数失败：{ex.Message}");
-            }
-        }
-
-
         public override void Initialize()
         {
             //user define Initialize
@@ -153,14 +150,5 @@ namespace DemoMachine.Machine
             // todo
         }
 
-        #region singleton
-
-        private DemoMachine()
-        {
-        }
-
-        public static DemoMachine Ins { get; } = new DemoMachine();
-
-        #endregion
     }
 }

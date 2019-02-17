@@ -38,6 +38,11 @@ namespace Automation.FrameworkExtension.common
             }
         }
 
-        public abstract bool CheckIfNormal();
+
+        /// <summary>
+        /// verify settings if ok
+        /// </summary>
+        /// <returns></returns>
+        public abstract bool Verify();
     }
 }
