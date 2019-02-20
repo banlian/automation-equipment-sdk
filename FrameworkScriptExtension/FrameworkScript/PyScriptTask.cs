@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Automation.FrameworkExtension.common;
+using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
@@ -17,7 +18,12 @@ namespace Automation.FrameworkScriptExtension.FrameworkScript
         public PyScriptTask(int id, string name, Station station) : base(id, name, station)
         {
             _scriptEngine = Python.CreateEngine();
+                    var paths = _scriptEngine.GetSearchPaths();
+            paths.Add(@"C:\Program Files\IronPython 2.7\Lib");
+            _scriptEngine.SetSearchPaths(paths);
             _scriptEngine.Runtime.LoadAssembly(Assembly.GetAssembly(typeof(RunningState)));
+            _scriptEngine.Runtime.LoadAssembly(Assembly.GetAssembly(typeof(MotionExtensionEx)));
+  
 
             _scriptScope = _scriptEngine.CreateScope();
             _scriptScope.SetVariable("t", this);
@@ -44,6 +50,30 @@ namespace Automation.FrameworkScriptExtension.FrameworkScript
             }
 
             _scriptScope.SetVariable("state", RunningState.Resetting);
+            foreach (var obj in Station.Machine.DiExs)
+            {
+                _scriptScope.SetVariable(obj.Value.Name, obj.Value);
+            }
+            foreach (var obj in Station.Machine.DoExs)
+            {
+                _scriptScope.SetVariable(obj.Value.Name, obj.Value);
+            }
+            foreach (var obj in Station.Machine.VioExs)
+            {
+                _scriptScope.SetVariable(obj.Value.Name, obj.Value);
+            }
+            foreach (var obj in Station.Machine.CylinderExs)
+            {
+                _scriptScope.SetVariable(obj.Value.Name, obj.Value);
+            }
+            foreach (var obj in Station.Machine.AxisExs)
+            {
+                _scriptScope.SetVariable(obj.Value.Name, obj.Value);
+            }
+            foreach (var obj in Station.Machine.Platforms)
+            {
+                _scriptScope.SetVariable(obj.Value.Name, obj.Value);
+            }
 
             if (_scriptSource == null)
             {

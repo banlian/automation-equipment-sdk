@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using Automation.Base.VirtualCardLibrary;
 using Automation.FrameworkExtension.elements;
@@ -21,6 +22,7 @@ namespace DemoMachine.Machine
         public static DemoMachine Ins { get; } = new DemoMachine();
 
         #endregion
+
         public DemoMachineSettings Settings { get; set; }
 
         public override void Load()
@@ -50,10 +52,62 @@ namespace DemoMachine.Machine
             try
             {
                 Import();
+
+                OutputScriptResource();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"导入设备参数失败：{ex.Message}");
+            }
+        }
+
+        private void OutputScriptResource()
+        {
+            using (var fs = new FileStream(@".\Scripts\resource.py", FileMode.OpenOrCreate))
+            {
+                using (var sw = new StreamWriter(fs, Encoding.UTF8))
+                {
+                    sw.WriteLine("DiExs");
+                    foreach (var obj in this.DiExs)
+                    {
+                        sw.WriteLine(obj.Value.Name);
+                    }
+
+                    sw.WriteLine();
+                    sw.WriteLine("DoExs");
+                    foreach (var obj in this.DoExs)
+                    {
+                        sw.WriteLine(obj.Value.Name);
+                    }
+
+                    sw.WriteLine();
+                    sw.WriteLine("VioExs");
+                    foreach (var obj in this.VioExs)
+                    {
+                        sw.WriteLine(obj.Value.Name);
+                    }
+
+                    sw.WriteLine();
+                    sw.WriteLine("CylinderExs");
+                    foreach (var obj in this.CylinderExs)
+                    {
+                        sw.WriteLine(obj.Value.Name);
+                    }
+
+                    sw.WriteLine();
+                    sw.WriteLine("AxisExs");
+                    foreach (var obj in this.AxisExs)
+                    {
+                        sw.WriteLine(obj.Value.Name);
+                    }
+
+                    sw.WriteLine();
+                    sw.WriteLine("Platforms");
+                    foreach (var obj in this.Platforms)
+                    {
+                        sw.WriteLine(obj.Value.Name);
+                    }
+                }
             }
         }
 
@@ -85,13 +139,13 @@ namespace DemoMachine.Machine
 
                 //load di do axis
 
-                DiExs.Add(1, new DiEx { Driver = Motion1 });
+                DiExs.Add(1, new DiEx {Driver = Motion1});
 
-                DoExs.Add(1, new DoEx { Driver = Motion1 });
+                DoExs.Add(1, new DoEx {Driver = Motion1});
 
-                CylinderExs.Add(1, new CylinderEx { Driver1 = Motion1, Driver2 = Motion1 });
+                CylinderExs.Add(1, new CylinderEx {Driver1 = Motion1, Driver2 = Motion1});
 
-                AxisExs.Add(1, new AxisEx { Driver = Motion1 });
+                AxisExs.Add(1, new AxisEx {Driver = Motion1});
 
                 //load station task
                 var station1 = new Station(1, "Station1", this);
@@ -102,27 +156,27 @@ namespace DemoMachine.Machine
                 {
                     // todo : to add signal configs
                     //estop
-                    DiEstop.Add(2, new DiEx { Driver = Motion1 });
+                    DiEstop.Add(2, new DiEx {Driver = Motion1});
 
                     //start/stop/reset button
-                    DiStart.Add(1, new DiEx { Driver = Motion1 });
-                    DiStop.Add(1, new DiEx { Driver = Motion1 });
-                    DiReset.Add(1, new DiEx { Driver = Motion1 });
+                    DiStart.Add(1, new DiEx {Driver = Motion1});
+                    DiStop.Add(1, new DiEx {Driver = Motion1});
+                    DiReset.Add(1, new DiEx {Driver = Motion1});
 
                     //start/stop/reset button lamp
-                    DoLightGreen.Add(1, new DoEx { Driver = Motion1 });
-                    DoLightRed.Add(1, new DoEx { Driver = Motion1 });
-                    DoLightYellow.Add(1, new DoEx { Driver = Motion1 });
+                    DoLightGreen.Add(1, new DoEx {Driver = Motion1});
+                    DoLightRed.Add(1, new DoEx {Driver = Motion1});
+                    DoLightYellow.Add(1, new DoEx {Driver = Motion1});
 
                     //lamp
-                    DoLightGreen.Add(2, new DoEx { Driver = Motion1 });
-                    DoLightRed.Add(2, new DoEx { Driver = Motion1 });
-                    DoLightYellow.Add(2, new DoEx { Driver = Motion1 });
-                    DoBuzzer.Add(1, new DoEx { Driver = Motion1 });
+                    DoLightGreen.Add(2, new DoEx {Driver = Motion1});
+                    DoLightRed.Add(2, new DoEx {Driver = Motion1});
+                    DoLightYellow.Add(2, new DoEx {Driver = Motion1});
+                    DoBuzzer.Add(1, new DoEx {Driver = Motion1});
 
 
                     //station pause signals
-                    Stations[1].PauseSignals.Add(1, new DiEx { Driver = Motion1 });
+                    Stations[1].PauseSignals.Add(1, new DiEx {Driver = Motion1});
                 }
             }
         }
@@ -149,6 +203,5 @@ namespace DemoMachine.Machine
             //user define Terminate
             // todo
         }
-
     }
 }

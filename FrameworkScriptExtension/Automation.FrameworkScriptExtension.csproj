@@ -66,14 +66,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="FrameworkScript\PyScriptTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\loading.py" />
-    <Content Include="Scripts\task1.py" />
-    <Content Include="Scripts\task2.py" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
