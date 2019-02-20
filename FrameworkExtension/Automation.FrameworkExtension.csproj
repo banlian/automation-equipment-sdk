@@ -115,14 +115,6 @@
     <Compile Include="platforms\safeCheckObjects\SafeCheckType.cs" />
     <Compile Include="platforms\TransformParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="scriptTask\ScriptCompileHelper.cs" />
-    <Compile Include="scriptTask\ScriptStationTask.cs" />
-    <Compile Include="scriptTask\ScriptTaskControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="scriptTask\ScriptTaskControl.Designer.cs">
-      <DependentUpon>ScriptTaskControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="stateMachine\BaseObject.cs" />
     <Compile Include="stateMachine\IEventHandler.cs" />
     <Compile Include="stateMachine\MachineForm.cs">
@@ -184,9 +176,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="platforms\motionPlatforms\PlatformMoveForm.resx">
       <DependentUpon>PlatformMoveForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="scriptTask\ScriptTaskControl.resx">
-      <DependentUpon>ScriptTaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="stateMachine\MachineForm.resx">
       <DependentUpon>MachineForm.cs</DependentUpon>

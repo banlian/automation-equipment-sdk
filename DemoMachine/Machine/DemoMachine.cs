@@ -64,7 +64,7 @@ namespace DemoMachine.Machine
 
             try
             {
-                Export();
+                //Export();
             }
             catch (Exception ex)
             {

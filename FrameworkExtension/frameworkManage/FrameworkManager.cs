@@ -84,8 +84,8 @@ namespace Automation.FrameworkExtension.frameworkManage
 
             _debugForm = new FrameworkDebugForm();
 
-            LoadMotionCardTypes(Directory.GetCurrentDirectory());
-            LoadUserMotionTypes(Directory.GetCurrentDirectory());
+            LoadMotionDriverTypes(Directory.GetCurrentDirectory());
+            LoadStationTaskTypes(Directory.GetCurrentDirectory());
 
         }
 
@@ -99,12 +99,14 @@ namespace Automation.FrameworkExtension.frameworkManage
         public static Dictionary<string, Type> MotionCardTypes = new Dictionary<string, Type>();
 
 
-        public static void LoadMotionCardTypes(string folder)
+        public static void LoadMotionDriverTypes(string folder)
         {
-            var files = Directory.GetFiles(folder).ToList().FindAll(f => f.EndsWith(".dll"));
+            var files = Directory.GetFiles(folder).Select(f => new FileInfo(f)).ToList();
+            files = files.FindAll(f => f.Name.EndsWith(".dll") && f.Name.StartsWith("Automation"));
+
             foreach (var file in files)
             {
-                var assembly = Assembly.LoadFrom(file);
+                var assembly = Assembly.LoadFrom(file.FullName);
                 var motionCardTypes = assembly.GetExportedTypes().Where(t => t.GetInterface(nameof(IMotionCard)) != null);
                 foreach (var t in motionCardTypes)
                 {
@@ -115,12 +117,14 @@ namespace Automation.FrameworkExtension.frameworkManage
         }
 
 
-        public static void LoadUserMotionTypes(string folder)
+        public static void LoadStationTaskTypes(string folder)
         {
-            var files = Directory.GetFiles(folder).ToList().FindAll(f => (f.EndsWith(".dll") && f.StartsWith("Automation")) || f.EndsWith(".exe"));
+            var files = Directory.GetFiles(folder).Select(f => new FileInfo(f)).ToList();
+            files = files.FindAll(f => (f.Name.EndsWith(".dll") && f.Name.StartsWith("Automation")) || f.Name.EndsWith(".exe"));
+
             foreach (var file in files)
             {
-                var assembly = Assembly.LoadFrom(file);
+                var assembly = Assembly.LoadFrom(file.FullName);
                 var taskTypes = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(StationTask)));
                 foreach (var t in taskTypes)
                 {
