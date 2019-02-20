@@ -35,8 +35,6 @@ namespace DemoMachine
             {
                 GC.Collect();
 
-
-                FrameworkManager.IsDebug = true;
                 FrameworkManager.Ins.Load(@".\Config\framework.cfg");
                 FrameworkManager.Ins.Initialize();
 

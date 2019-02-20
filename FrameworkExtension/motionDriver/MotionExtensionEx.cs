@@ -112,7 +112,7 @@ namespace Automation.FrameworkExtension.motionDriver
                     cyex[i].Driver2.SetDo(cyex[i].DoWork, status[i] ? 1 : 0);
             }
 
-            if (FrameworkManager.IsSimulate)
+            if (FrameworkManager.Ins.IsSimulate)
             {
                 var err = $"{string.Join(",", cyex.Select(c => c.Name))} SetDo {string.Join(",", status)} {timeout}";
                 task?.Log($"{err} success", LogLevel.Debug);
@@ -133,7 +133,7 @@ namespace Automation.FrameworkExtension.motionDriver
             task?.AbortIfCancel(nameof(WaitDi));
             task?.JoinIfPause();
 
-            if (FrameworkManager.IsSimulate)
+            if (FrameworkManager.Ins.IsSimulate)
             {
                 var msg = $"{string.Join(",", cyex.Select(c => c.Name))} WaitDi {string.Join(",", status)} {timeout}";
                 task?.Log($"{msg} success", LogLevel.Debug);
@@ -214,7 +214,7 @@ namespace Automation.FrameworkExtension.motionDriver
             task?.AbortIfCancel(nameof(WaitDi));
             task?.JoinIfPause();
 
-            if (FrameworkManager.IsSimulate)
+            if (FrameworkManager.Ins.IsSimulate)
             {
                 return true;
             }
@@ -274,7 +274,7 @@ namespace Automation.FrameworkExtension.motionDriver
         /// <returns></returns>
         public static bool GetDiSts(this IDiEx diex, bool status = true)
         {
-            if (FrameworkManager.IsSimulate)
+            if (FrameworkManager.Ins.IsSimulate)
             {
                 if (diex.Type == DiType.NormalOpen)
                 {
@@ -314,7 +314,7 @@ namespace Automation.FrameworkExtension.motionDriver
 
         public static bool GetDiStsRaw(this IDiEx diex, bool status = true)
         {
-            if (FrameworkManager.IsSimulate)
+            if (FrameworkManager.Ins.IsSimulate)
             {
                 if (diex.Type == DiType.NormalOpen)
                 {
@@ -371,7 +371,7 @@ namespace Automation.FrameworkExtension.motionDriver
             task?.AbortIfCancel(nameof(WaitDi));
             task?.JoinIfPause();
 
-            if (FrameworkManager.IsSimulate)
+            if (FrameworkManager.Ins.IsSimulate)
             {
                 return true;
             }

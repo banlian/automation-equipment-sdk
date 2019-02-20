@@ -36,7 +36,7 @@ namespace Automation.FrameworkScriptExtension.FrameworkScript
         private ScriptSource _scriptSource;
 
         private string _scriptFileName;
-        private string _scriptString;
+        //private string _scriptString;
 
         private DateTime _lastRunDateTime;
 

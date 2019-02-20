@@ -26,45 +26,13 @@ namespace Automation.FrameworkExtension.frameworkManage
         #endregion
 
 
-        public bool Reboot = false;
+        #region  framework manger
 
-        public static bool IsSimulate = false;
+        public bool Reboot { get; set; }= false;
 
-        public static string FrameworkExceptionHead = "FRAMEWORK EXCEPTION";
+        public bool IsSimulate { get; set; } = false;
 
-
-        #region  framework debug methods
-
-
-
-        public static bool IsDebug = false;
-
-        private static FrameworkDebugForm _debugForm;
-
-
-        public static void Debug(string log)
-        {
-            if (!IsDebug)
-            {
-                return;
-            }
-
-            if (_debugForm != null)
-            {
-                _debugForm.UpdateLog(log);
-            }
-        }
-        public static void Error(string msg)
-        {
-            if (IsDebug)
-            {
-                Debug(msg);
-            }
-
-            MessageBox.Show(msg, FrameworkExceptionHead, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        #endregion
+        public bool IsDebug { get; set; }= false;
 
         public new void Load(string env)
         {
@@ -86,57 +54,8 @@ namespace Automation.FrameworkExtension.frameworkManage
 
             LoadMotionDriverTypes(Directory.GetCurrentDirectory());
             LoadStationTaskTypes(Directory.GetCurrentDirectory());
-
         }
 
-
-        #region framework reflection methods
-
-
-
-
-        public static Dictionary<string, Type> TaskTypes = new Dictionary<string, Type>();
-        public static Dictionary<string, Type> MotionCardTypes = new Dictionary<string, Type>();
-
-
-        public static void LoadMotionDriverTypes(string folder)
-        {
-            var files = Directory.GetFiles(folder).Select(f => new FileInfo(f)).ToList();
-            files = files.FindAll(f => f.Name.EndsWith(".dll") && f.Name.StartsWith("Automation"));
-
-            foreach (var file in files)
-            {
-                var assembly = Assembly.LoadFrom(file.FullName);
-                var motionCardTypes = assembly.GetExportedTypes().Where(t => t.GetInterface(nameof(IMotionCard)) != null);
-                foreach (var t in motionCardTypes)
-                {
-                    MotionCardTypes.Add(t.Name, t);
-                }
-            }
-            FrameworkManager.Debug($"加载运动驱动类型：\n{string.Join("\n", MotionCardTypes.Select(t => t.Key))}");
-        }
-
-
-        public static void LoadStationTaskTypes(string folder)
-        {
-            var files = Directory.GetFiles(folder).Select(f => new FileInfo(f)).ToList();
-            files = files.FindAll(f => (f.Name.EndsWith(".dll") && f.Name.StartsWith("Automation")) || f.Name.EndsWith(".exe"));
-
-            foreach (var file in files)
-            {
-                var assembly = Assembly.LoadFrom(file.FullName);
-                var taskTypes = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(StationTask)));
-                foreach (var t in taskTypes)
-                {
-                    TaskTypes.Add(t.Name, t);
-                }
-            }
-            FrameworkManager.Debug($"加载用户定义任务类型：\n{string.Join("\n", TaskTypes.Select(t => t.Key))}");
-        }
-
-
-
-        #endregion
 
         /// <summary>
         /// 初始化PrimsFactory
@@ -166,6 +85,84 @@ namespace Automation.FrameworkExtension.frameworkManage
         }
 
 
+
+        private static FrameworkDebugForm _debugForm;
+
+
+        public void Debug(string log)
+        {
+            if (!Ins.IsDebug)
+            {
+                return;
+            }
+
+            if (_debugForm != null)
+            {
+                _debugForm.UpdateLog(log);
+            }
+        }
+        public void Error(string msg)
+        {
+            if (Ins.IsDebug)
+            {
+                Debug(msg);
+            }
+
+            MessageBox.Show(msg, FrameworkExceptionHead, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        #endregion
+
+        public static string FrameworkExceptionHead = "FRAMEWORK EXCEPTION";
+
+
+        #region framework reflection methods
+
+
+
+
+        public static Dictionary<string, Type> TaskTypes = new Dictionary<string, Type>();
+        public static Dictionary<string, Type> MotionCardTypes = new Dictionary<string, Type>();
+
+
+        public static void LoadMotionDriverTypes(string folder)
+        {
+            var files = Directory.GetFiles(folder).Select(f => new FileInfo(f)).ToList();
+            files = files.FindAll(f => f.Name.EndsWith(".dll") && f.Name.StartsWith("Automation"));
+
+            foreach (var file in files)
+            {
+                var assembly = Assembly.LoadFrom(file.FullName);
+                var motionCardTypes = assembly.GetExportedTypes().Where(t => t.GetInterface(nameof(IMotionCard)) != null);
+                foreach (var t in motionCardTypes)
+                {
+                    MotionCardTypes.Add(t.Name, t);
+                }
+            }
+            FrameworkManager.Ins.Debug($"加载运动驱动类型：\n{string.Join("\n", MotionCardTypes.Select(t => t.Key))}");
+        }
+
+
+        public static void LoadStationTaskTypes(string folder)
+        {
+            var files = Directory.GetFiles(folder).Select(f => new FileInfo(f)).ToList();
+            files = files.FindAll(f => (f.Name.EndsWith(".dll") && f.Name.StartsWith("Automation")) || f.Name.EndsWith(".exe"));
+
+            foreach (var file in files)
+            {
+                var assembly = Assembly.LoadFrom(file.FullName);
+                var taskTypes = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(StationTask)));
+                foreach (var t in taskTypes)
+                {
+                    TaskTypes.Add(t.Name, t);
+                }
+            }
+            FrameworkManager.Ins.Debug($"加载用户定义任务类型：\n{string.Join("\n", TaskTypes.Select(t => t.Key))}");
+        }
+
+
+
+        #endregion
 
     }
 }

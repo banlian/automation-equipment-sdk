@@ -152,7 +152,7 @@ namespace DemoMachine.Machine
                 var testTask1 = new TestTask1(1, "Test1", station1);
 
                 //bind signals
-                if (!FrameworkManager.IsSimulate)
+                if (!FrameworkManager.Ins.IsSimulate)
                 {
                     // todo : to add signal configs
                     //estop
