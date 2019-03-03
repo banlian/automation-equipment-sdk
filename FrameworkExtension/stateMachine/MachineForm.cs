@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Automation.FrameworkExtension.deviceDriver;
 using Automation.FrameworkExtension.elementsInterfaces;
 using Automation.FrameworkExtension.loadUtils;
 using Automation.FrameworkExtension.platforms.motionPlatforms;
@@ -23,7 +24,7 @@ namespace Automation.FrameworkExtension.stateMachine
 
                 richTextBox1.Text = Machine.SerializeToString();
 
-                comboBoxExType.Items.AddRange(new object[] { "DI", "DO", "VIO", "CY", "PLATFORM", "STATION", "TASK" });
+                comboBoxExType.Items.AddRange(new object[] { "DI", "DO", "VIO", "CY", "PLATFORM", "STATION", "TASK", "DEVICE" });
 
             }
 
@@ -57,6 +58,9 @@ namespace Automation.FrameworkExtension.stateMachine
                     break;
                 case "TASK":
                     element = Machine.Tasks.Values.ToList();
+                    break;
+                case "DEVICE":
+                    element = Machine.Devices.Values.ToList();
                     break;
                 default:
                     return;
@@ -100,6 +104,9 @@ namespace Automation.FrameworkExtension.stateMachine
                     break;
                 case "TASK":
                     element = Machine.Find<StationTask>(comboBoxExObj.Text);
+                    break;
+                case "DEVICE":
+                    element = Machine.Find<IDevice>(comboBoxExObj.Text);
                     break;
                 default:
                     return;
@@ -145,6 +152,9 @@ namespace Automation.FrameworkExtension.stateMachine
                     break;
                 case "TASK":
                     element = Machine.Tasks.Values.Select(e => (object)e.Name).ToArray();
+                    break;
+                case "DEVICE":
+                    element = Machine.Devices.Values.Select(e => (object)e.Name).ToArray();
                     break;
                 default:
                     return;

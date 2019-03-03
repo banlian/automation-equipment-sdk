@@ -1,19 +1,14 @@
-﻿namespace Automation.FrameworkExtension.motionDriver
+﻿using Automation.FrameworkExtension.deviceDriver;
+using Automation.FrameworkExtension.elementsInterfaces;
+
+namespace Automation.FrameworkExtension.motionDriver
 {
 
     /// <summary>
     /// motion card must be implemented as this interface
     /// </summary>
-    public interface IMotionCard
+    public interface IMotionCard : IDevice
     {
-
-        string Name { get; set; }
-
-        int DeviceID { get; set; }
-
-        bool Initialize();
-        bool Terminate();
-
         bool LoadParams(string configFileName, params object[] objects);
 
 

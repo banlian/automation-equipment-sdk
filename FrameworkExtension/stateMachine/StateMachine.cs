@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using Automation.FrameworkExtension.common;
+using Automation.FrameworkExtension.deviceDriver;
 using Automation.FrameworkExtension.elements;
+using Automation.FrameworkExtension.elementsInterfaces;
 using Automation.FrameworkExtension.loadUtils;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.platforms.motionPlatforms;
@@ -37,6 +39,7 @@ namespace Automation.FrameworkExtension.stateMachine
         public Dictionary<int, DoEx> DoLightYellow { get; } = new Dictionary<int, DoEx>();
         public Dictionary<int, DoEx> DoLightGreen { get; } = new Dictionary<int, DoEx>();
         public Dictionary<int, DoEx> DoBuzzer { get; } = new Dictionary<int, DoEx>();
+        public Dictionary<int, IDevice> Devices { get; } = new Dictionary<int, IDevice>();
 
 
         public RunState RunState { get; protected set; } = RunState.AUTO;

@@ -18,6 +18,8 @@ try:
 		Cy1.SetDo(t, False)
 		LightGreen.SetDo(False)
 		
+		t.Log("laser measure val:"+str(Laser1.Measure()[0]))
+		
 		t.Log("Run Script Resetting Finish", LogLevel.Debug)
 		pass
 		

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Automation.FrameworkExtension.stateMachine;
 using Automation.FrameworkUtilityLib.UtilViews;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -73,6 +74,14 @@ namespace DemoMachine
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void 设备信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mf = new MachineForm();
+            mf.Machine = Machine.DemoMachine.Ins;
+
+            mf.ShowDialog();
         }
     }
 }

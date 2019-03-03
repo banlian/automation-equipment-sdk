@@ -242,3 +242,4 @@ ModelManifest.xml
 .fake/
 /Lead.Detect.Bin
 /BASE/Lead.Detect.Bin
+/build_bin_exe

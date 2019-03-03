@@ -74,6 +74,10 @@ namespace Automation.FrameworkScriptExtension.FrameworkScript
             {
                 _scriptScope.SetVariable(obj.Value.Name, obj.Value);
             }
+            foreach (var obj in Station.Machine.Devices)
+            {
+                _scriptScope.SetVariable(obj.Value.Name, obj.Value);
+            }
 
             if (_scriptSource == null)
             {

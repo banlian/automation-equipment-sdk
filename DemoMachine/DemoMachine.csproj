@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>DemoMachine</RootNamespace>
     <AssemblyName>DemoMachine</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\build_bin_exe\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -128,9 +128,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BASE\MotionCardLibrary1\MotionCardLibrary1.csproj">
+    <ProjectReference Include="..\BASE\MotionCardLibrary1\MotionCardLibrary.csproj">
       <Project>{1383b505-521b-48d5-a5b5-83e15f5da342}</Project>
-      <Name>MotionCardLibrary1</Name>
+      <Name>MotionCardLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\BASE\VirtualCardLibrary\VirtualCardLibrary.csproj">
       <Project>{6d1b2ec2-8a81-4669-b3a3-6cfdafb7a366}</Project>
@@ -153,9 +153,7 @@
       <Name>Automation.FrameworkUtilityLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Scripts\loading.py" />
     <Content Include="Scripts\resource.py" />

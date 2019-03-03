@@ -1,19 +1,21 @@
 ﻿using System;
+using Automation.FrameworkExtension.deviceDriver;
 using Automation.FrameworkExtension.elementsInterfaces;
 using Automation.FrameworkExtension.frameworkManage;
 using Automation.FrameworkExtension.stateMachine;
 
 namespace Automation.FrameworkExtension.motionDriver
 {
-    public class MotionCardWrapper : IElement
+    public class MotionCardWrapper : IDevice
     {
         public int Id { get; set; }
         public string Name { get; set; } = nameof(MotionCardWrapper);
-
-        public string ConfigFile { get; set; } = nameof(ConfigFile);
+        public string Description { get; set; }
+        public string Vendor { get; set; }
+        public string Version { get; set; }
+        public string ConfigFilePath { get; set; } = nameof(ConfigFilePath);
 
         public IMotionCard Motion { get; protected set; }
-
 
         public MotionCardWrapper()
         {
@@ -28,23 +30,26 @@ namespace Automation.FrameworkExtension.motionDriver
             }
 
             Name = (motion)?.Name;
-            Id = motion.DeviceID;
+            Id = motion.Id;
             Motion = motion;
         }
 
 
-        public void Init(string file)
+        public bool Initialize()
         {
             Motion.Initialize();
-            Motion.LoadParams(ConfigFile);
+            Motion.LoadParams(ConfigFilePath);
+
+            return true;
         }
 
-        public void Uninit()
+        public bool Terminate()
         {
             Motion.Terminate();
+            return true;
         }
 
-
+        #region io operations
         public void SetDo(int port, int status)
         {
             Motion.SetDo(Id, port, status);
@@ -60,7 +65,12 @@ namespace Automation.FrameworkExtension.motionDriver
             Motion.GetDi(Id, port, out status);
         }
 
+        #endregion
 
+
+        #region motion status
+
+        
         public int GetEncPos(int axis, ref int pos)
         {
             double p = 0;
@@ -88,6 +98,12 @@ namespace Automation.FrameworkExtension.motionDriver
             return 0;
         }
 
+        #endregion
+
+
+        #region motion
+
+        
 
         public void ServoEnable(int axis, bool enable)
         {
@@ -126,6 +142,11 @@ namespace Automation.FrameworkExtension.motionDriver
             return !Motion.IsAxisHmv(Id, axis) && Motion.IsAxisStop(Id, axis);
         }
 
+        #endregion
+
+        #region axis status
+
+        
         public bool GetAxisEnable(int axis)
         {
             return Motion.IsAxisServo(Id, axis);
@@ -175,14 +196,16 @@ namespace Automation.FrameworkExtension.motionDriver
             return Motion.IsAxisOrg(Id, axis);
         }
 
+        #endregion
+
         public override string ToString()
         {
-            return $"{Name} {Id} {Motion.GetType().Name} {ConfigFile}";
+            return $"{Name} {Id} {Motion.GetType().Name} {ConfigFilePath}";
         }
 
         public string Export()
         {
-            return $"{Name} {Id} {Motion.GetType().Name} {ConfigFile}";
+            return $"{Name} {Id} {Motion.GetType().Name} {ConfigFilePath}";
         }
 
         public void Import(string line, StateMachine machine)
@@ -192,13 +215,13 @@ namespace Automation.FrameworkExtension.motionDriver
             var id = int.Parse(data[i++]);
 
             Name = data[i++];
-            Id = int.Parse(data[i++]);
 
+            Id = int.Parse(data[i++]);
             var typeName = data[i++];
             var configFile = data[i++];
 
 
-            ConfigFile = configFile;
+            ConfigFilePath = configFile;
 
             //load motion card
             var motioncard = Activator.CreateInstance(FrameworkManager.MotionCardTypes[typeName]) as IMotionCard;
@@ -209,11 +232,10 @@ namespace Automation.FrameworkExtension.motionDriver
 
             Motion = motioncard;
 
-            if (machine.MotionExs.ContainsKey(id))
+            if (!machine.MotionExs.ContainsKey(id))
             {
-                return;
+                machine.MotionExs.Add(id, this);
             }
-            machine.MotionExs.Add(id, this);
         }
 
     }

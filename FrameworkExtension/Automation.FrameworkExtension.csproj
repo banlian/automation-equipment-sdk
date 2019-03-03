@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Automation.FrameworkExtension</RootNamespace>
     <AssemblyName>Automation.FrameworkExtension</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\build_bin_exe\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -56,8 +56,10 @@
     <Compile Include="common\LoginLevel.cs" />
     <Compile Include="common\LogLevel.cs" />
     <Compile Include="common\UserSettings.cs" />
+    <Compile Include="deviceDriver\IDeviceControl.cs" />
     <Compile Include="elementsInterfaces\IAxisEx.cs" />
     <Compile Include="elementsInterfaces\ICylinderEx.cs" />
+    <Compile Include="deviceDriver\IDevice.cs" />
     <Compile Include="elementsInterfaces\IDiEx.cs" />
     <Compile Include="elementsInterfaces\IDoEx.cs" />
     <Compile Include="elementsInterfaces\IElement.cs" />

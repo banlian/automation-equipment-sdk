@@ -2,6 +2,7 @@
 using System.Linq;
 using Automation.FrameworkExtension.elements;
 using Automation.FrameworkExtension.elementsInterfaces;
+using Automation.FrameworkExtension.frameworkManage;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.platforms.motionPlatforms;
 using Automation.FrameworkExtension.stateMachine;
@@ -142,6 +143,10 @@ namespace Automation.FrameworkExtension.loadUtils
                 case "AXIS":
                     new AxisEx().Import(line, machine);
                     break;
+                case "DEVICE":
+                    FrameworkManager.DeviceManager.Ins.Import(line, machine);
+                    break;
+
                 case "PLATFORM":
                     if (string.IsNullOrEmpty(IndentSection))
                     {
@@ -210,4 +215,6 @@ namespace Automation.FrameworkExtension.loadUtils
             }
         }
     }
+
+  
 }

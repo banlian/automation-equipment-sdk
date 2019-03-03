@@ -1,13 +1,29 @@
 ﻿using System;
 using System.Threading;
 using Automation.FrameworkExtension.motionDriver;
+using Automation.FrameworkExtension.stateMachine;
 
 namespace Automation.Base.MotionCardLibrary1
 {
     public class LeiSaiCard : IMotionCard
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int DeviceID { get; set; }
+        public string Description { get; set; }
+        public string Vendor { get; set; }
+        public string Version { get; set; }
+        public string ConfigFilePath { get; set; }
+
+        public string Export()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Import(string line, StateMachine machine)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Initialize()
         {
             LTDMC.dmc_board_init();
@@ -22,11 +38,11 @@ namespace Automation.Base.MotionCardLibrary1
 
         public bool LoadParams(string configFileName, params object[] objects)
         {
-            var ret = LTDMC.dmc_download_configfile((ushort)DeviceId, configFileName);
+            var ret = LTDMC.dmc_download_configfile((ushort)Id, configFileName);
 
             for (int i = 0; i < 6; i++)
             {
-                LTDMC.dmc_set_home_el_return((ushort)DeviceId, (ushort)i, 1);
+                LTDMC.dmc_set_home_el_return((ushort)Id, (ushort)i, 1);
             }
 
             if (ret != 0)
@@ -39,22 +55,20 @@ namespace Automation.Base.MotionCardLibrary1
 
         public bool ClearAlarm(int index, int axis)
         {
-            LTDMC.dmc_write_erc_pin((ushort)DeviceId, (ushort)axis, (ushort)0);
+            LTDMC.dmc_write_erc_pin((ushort)Id, (ushort)axis, (ushort)0);
             Thread.Sleep(50);
-            LTDMC.dmc_write_erc_pin((ushort)DeviceId, (ushort)axis, (ushort)1);
+            LTDMC.dmc_write_erc_pin((ushort)Id, (ushort)axis, (ushort)1);
             Thread.Sleep(50);
-            LTDMC.dmc_write_erc_pin((ushort)DeviceId, (ushort)axis, (ushort)0);
+            LTDMC.dmc_write_erc_pin((ushort)Id, (ushort)axis, (ushort)0);
             Thread.Sleep(50);
             return true;
         }
-
-        public int DeviceId { get; set; }
 
         public int SetDo(int index, int port, int status)
         {
             status = status == 1 ? 0 : 1;
 
-            var ret = LTDMC.dmc_write_outbit((ushort)DeviceId, (ushort)port, (ushort)status);
+            var ret = LTDMC.dmc_write_outbit((ushort)Id, (ushort)port, (ushort)status);
             if (ret != 0)
             {
                 throw new Exception("WriteSingleDOutput fail");
@@ -64,14 +78,14 @@ namespace Automation.Base.MotionCardLibrary1
 
         public int GetDo(int index, int port, out int status)
         {
-            status = LTDMC.dmc_read_outbit((ushort)DeviceId, (ushort)port);
+            status = LTDMC.dmc_read_outbit((ushort)Id, (ushort)port);
             status = status == 0 ? 1 : 0;
             return 0;
         }
 
         public int GetDi(int index, int port, out int status)
         {
-            status = LTDMC.dmc_read_inbit((ushort)DeviceId, (ushort)port);
+            status = LTDMC.dmc_read_inbit((ushort)Id, (ushort)port);
             status = status == 0 ? 1 : 0;
             return 0;
         }
@@ -83,18 +97,18 @@ namespace Automation.Base.MotionCardLibrary1
 
         public int GetEncPos(int index, int axis, ref double d)
         {
-            d = LTDMC.dmc_get_position((ushort)DeviceId, (ushort)axis);
+            d = LTDMC.dmc_get_position((ushort)Id, (ushort)axis);
             return 0;
         }
 
         public int SetEncPos(int index, int axis, int pos)
         {
-            return LTDMC.dmc_set_position((ushort)DeviceId, (ushort)axis, pos);
+            return LTDMC.dmc_set_position((ushort)Id, (ushort)axis, pos);
         }
 
         public int GetCmdPos(int index, int axis, ref double d)
         {
-            d = LTDMC.dmc_get_target_position((ushort)DeviceId, (ushort)axis);
+            d = LTDMC.dmc_get_target_position((ushort)Id, (ushort)axis);
             return 0;
         }
 
@@ -105,13 +119,13 @@ namespace Automation.Base.MotionCardLibrary1
 
         public int Servo(int index, int axis, bool enable)
         {
-            LTDMC.dmc_write_erc_pin((ushort)DeviceId, (ushort)axis, (ushort)0);
+            LTDMC.dmc_write_erc_pin((ushort)Id, (ushort)axis, (ushort)0);
             Thread.Sleep(50);
-            LTDMC.dmc_write_erc_pin((ushort)DeviceId, (ushort)axis, (ushort)1);
+            LTDMC.dmc_write_erc_pin((ushort)Id, (ushort)axis, (ushort)1);
             Thread.Sleep(50);
-            LTDMC.dmc_write_erc_pin((ushort)DeviceId, (ushort)axis, (ushort)0);
+            LTDMC.dmc_write_erc_pin((ushort)Id, (ushort)axis, (ushort)0);
             Thread.Sleep(50);
-            return LTDMC.dmc_set_sevon_enable((ushort)DeviceId, (ushort)axis, (ushort)(enable ? 1 : 0));
+            return LTDMC.dmc_set_sevon_enable((ushort)Id, (ushort)axis, (ushort)(enable ? 1 : 0));
         }
 
         public int AxisAbsMove(int index, int axis, int pos, int vel)
@@ -121,9 +135,9 @@ namespace Automation.Base.MotionCardLibrary1
             var tAcc = 0d;
             var tDec = 0d;
             var stopVel = 0d;
-            LTDMC.dmc_get_profile((ushort)DeviceId, (ushort)axis, ref minVel, ref maxVel, ref tAcc, ref tDec, ref stopVel);
-            LTDMC.dmc_set_profile((ushort)DeviceId, (ushort)axis, minVel, vel, tAcc, tDec, stopVel);
-            return LTDMC.dmc_pmove((ushort)DeviceId, (ushort)axis, pos, 1);
+            LTDMC.dmc_get_profile((ushort)Id, (ushort)axis, ref minVel, ref maxVel, ref tAcc, ref tDec, ref stopVel);
+            LTDMC.dmc_set_profile((ushort)Id, (ushort)axis, minVel, vel, tAcc, tDec, stopVel);
+            return LTDMC.dmc_pmove((ushort)Id, (ushort)axis, pos, 1);
         }
 
         public int AxisRelMove(int index, int axis, int step, int vel)
@@ -133,30 +147,30 @@ namespace Automation.Base.MotionCardLibrary1
             var tAcc = 0d;
             var tDec = 0d;
             var stopVel = 0d;
-            LTDMC.dmc_get_profile((ushort)DeviceId, (ushort)axis, ref minVel, ref maxVel, ref tAcc, ref tDec, ref stopVel);
-            LTDMC.dmc_set_profile((ushort)DeviceId, (ushort)axis, minVel, vel, tAcc, tDec, stopVel);
-            return LTDMC.dmc_pmove((ushort)DeviceId, (ushort)axis, step, 0);
+            LTDMC.dmc_get_profile((ushort)Id, (ushort)axis, ref minVel, ref maxVel, ref tAcc, ref tDec, ref stopVel);
+            LTDMC.dmc_set_profile((ushort)Id, (ushort)axis, minVel, vel, tAcc, tDec, stopVel);
+            return LTDMC.dmc_pmove((ushort)Id, (ushort)axis, step, 0);
         }
 
         public bool IsAxisStop(int index, int axis)
         {
-            return LTDMC.dmc_check_done((ushort)DeviceId, (ushort)axis) == 1;
+            return LTDMC.dmc_check_done((ushort)Id, (ushort)axis) == 1;
         }
 
         public int AxisStop(int index, int axis)
         {
 
-            return LTDMC.dmc_stop((ushort)DeviceId, (ushort)axis, 0);
+            return LTDMC.dmc_stop((ushort)Id, (ushort)axis, 0);
         }
 
         public int AxisSetAcc(int index, int axis, double acc)
         {
-            return LTDMC.dmc_set_profile((ushort)DeviceId, (ushort)axis, acc / 4, acc / 2, acc / 50 * 0.01, acc / 50 * 0.01, acc);
+            return LTDMC.dmc_set_profile((ushort)Id, (ushort)axis, acc / 4, acc / 2, acc / 50 * 0.01, acc / 50 * 0.01, acc);
         }
 
         public int AxisSetDec(int index, int axis, double dec)
         {
-            return LTDMC.dmc_set_profile((ushort)DeviceId, (ushort)axis, dec / 4, dec / 2, dec / 50 * 0.01, dec / 50 * 0.01, dec);
+            return LTDMC.dmc_set_profile((ushort)Id, (ushort)axis, dec / 4, dec / 2, dec / 50 * 0.01, dec / 50 * 0.01, dec);
         }
 
         public int SetHomeVel(int index, int axis, int vel)
@@ -166,61 +180,61 @@ namespace Automation.Base.MotionCardLibrary1
             var tAcc = 0d;
             var tDec = 0d;
             var stopVel = 0d;
-            LTDMC.dmc_get_profile((ushort)DeviceId, (ushort)axis, ref minVel, ref maxVel, ref tAcc, ref tDec, ref stopVel);
-            LTDMC.dmc_set_profile((ushort)DeviceId, (ushort)axis, vel / 3d, vel, tAcc, tDec, stopVel);
+            LTDMC.dmc_get_profile((ushort)Id, (ushort)axis, ref minVel, ref maxVel, ref tAcc, ref tDec, ref stopVel);
+            LTDMC.dmc_set_profile((ushort)Id, (ushort)axis, vel / 3d, vel, tAcc, tDec, stopVel);
             return 0;
         }
 
         public int AxisHomeMove(int index, int axis)
         {
-            return LTDMC.dmc_home_move((ushort)DeviceId, (ushort)axis);
+            return LTDMC.dmc_home_move((ushort)Id, (ushort)axis);
         }
 
         public bool IsAxisHmv(int index, int axis)
         {
             ushort state = 0;
-            var ret = LTDMC.dmc_get_home_result((ushort)DeviceId, (ushort)axis, ref state);
+            var ret = LTDMC.dmc_get_home_result((ushort)Id, (ushort)axis, ref state);
             return state != 1;
         }
 
         public bool IsAxisServo(int index, int axis)
         {
-            return LTDMC.dmc_get_sevon_enable((ushort)DeviceId, (ushort)axis) == 1;
+            return LTDMC.dmc_get_sevon_enable((ushort)Id, (ushort)axis) == 1;
         }
 
         public bool IsAxisAlarm(int index, int axis)
         {
-            var sts = LTDMC.dmc_axis_io_status((ushort)DeviceId, (ushort)axis);
+            var sts = LTDMC.dmc_axis_io_status((ushort)Id, (ushort)axis);
             return (sts & (1 << 0)) > 0;
         }
 
         public bool IsAxisEmg(int index, int axis)
         {
-            var sts = LTDMC.dmc_axis_io_status((ushort)DeviceId, (ushort)axis);
+            var sts = LTDMC.dmc_axis_io_status((ushort)Id, (ushort)axis);
             return (sts & (1 << 3)) > 0;
         }
 
         public bool IsAxisMel(int index, int axis)
         {
-            var sts = LTDMC.dmc_axis_io_status((ushort)DeviceId, (ushort)axis);
+            var sts = LTDMC.dmc_axis_io_status((ushort)Id, (ushort)axis);
             return (sts & (1 << 2)) > 0;
         }
 
-        public bool IsAxisPel(int motionDeviceId, int axis)
+        public bool IsAxisPel(int motionId, int axis)
         {
-            var sts = LTDMC.dmc_axis_io_status((ushort)DeviceId, (ushort)axis);
+            var sts = LTDMC.dmc_axis_io_status((ushort)Id, (ushort)axis);
             return (sts & (1 << 1)) > 0;
         }
 
-        public bool IsAxisOrg(int motionDeviceId, int axis)
+        public bool IsAxisOrg(int motionId, int axis)
         {
-            var sts = LTDMC.dmc_axis_io_status((ushort)DeviceId, (ushort)axis);
+            var sts = LTDMC.dmc_axis_io_status((ushort)Id, (ushort)axis);
             return (sts & (1 << 4)) > 0;
         }
 
         public bool IsAxisAstp(int index, int axis)
         {
-            var sts = LTDMC.dmc_axis_io_status((ushort)DeviceId, (ushort)axis);
+            var sts = LTDMC.dmc_axis_io_status((ushort)Id, (ushort)axis);
             return (sts & (1 << 3)) > 0;
         }
 

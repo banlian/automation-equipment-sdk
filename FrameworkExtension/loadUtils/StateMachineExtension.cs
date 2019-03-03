@@ -2,7 +2,9 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using Automation.FrameworkExtension.deviceDriver;
 using Automation.FrameworkExtension.elements;
+using Automation.FrameworkExtension.elementsInterfaces;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.platforms.motionPlatforms;
 using Automation.FrameworkExtension.stateMachine;
@@ -86,7 +88,8 @@ namespace Automation.FrameworkExtension.loadUtils
                     sw.WriteLine(new SectionWriter<AxisEx>("AXIS", machine.AxisExs).Export());
                     sw.WriteLine(new SectionWriter<PlatformEx>("PLATFORM", machine.Platforms).Export());
                     sw.WriteLine();
-
+                    sw.WriteLine(new SectionWriter<IDevice>("DEVICE", machine.Devices).Export());
+                    sw.WriteLine();
 
                     sw.WriteLine(new SectionWriter<Station>("STATION", machine.Stations).Export());
                 }
@@ -121,7 +124,8 @@ namespace Automation.FrameworkExtension.loadUtils
             sb.AppendLine(new SectionWriter<AxisEx>("AXIS", machine.AxisExs).Export());
             sb.AppendLine(new SectionWriter<PlatformEx>("PLATFORM", machine.Platforms).Export());
             sb.AppendLine();
-
+            sb.AppendLine(new SectionWriter<IDevice>("DEVICE", machine.Devices).Export());
+            sb.AppendLine();
 
             sb.AppendLine(new SectionWriter<Station>("STATION", machine.Stations).Export());
 

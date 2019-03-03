@@ -1,12 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Automation.FrameworkExtension.motionDriver;
+using Automation.FrameworkExtension.stateMachine;
 
-namespace Automation.Base.MotionCardLibrary1
+namespace Automation.Base.MotionCardLibrary1.Googol
 {
-    public class MotionCard1 : IMotionCard
+    public class GtsIOCard : IMotionCard
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int DeviceID { get; set; }
+        public string Description { get; set; }
+        public string Vendor { get; set; }
+        public string Version { get; set; }
+        public string ConfigFilePath { get; set; }
+
+        public string Export()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Import(string line, StateMachine machine)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Initialize()
         {
             throw new NotImplementedException();

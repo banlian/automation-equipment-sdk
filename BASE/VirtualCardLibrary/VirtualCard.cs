@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using Automation.FrameworkExtension.motionDriver;
+using Automation.FrameworkExtension.stateMachine;
 using Timer = System.Threading.Timer;
 
 namespace Automation.Base.VirtualCardLibrary
@@ -8,6 +9,15 @@ namespace Automation.Base.VirtualCardLibrary
     [Serializable]
     public class VirtualCard : IMotionCard
     {
+        public int Id { get; set; }
+
+
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Vendor { get; set; }
+        public string Version { get; set; }
+        public string ConfigFilePath { get; set; }
+
         private readonly AxisStatus[] _axisStatus;
 
 
@@ -42,9 +52,15 @@ namespace Automation.Base.VirtualCardLibrary
         }
 
 
-        public string Name { get; set; }
-        public int DeviceID { get; set; }
+        public string Export()
+        {
+            throw new NotImplementedException();
+        }
 
+        public void Import(string line, StateMachine machine)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool Initialize()
         {
