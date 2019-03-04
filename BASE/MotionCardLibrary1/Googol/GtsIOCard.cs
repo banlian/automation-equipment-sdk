@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
+using LMotionCardLib.LDriver.Googol;
 
 namespace Automation.Base.MotionCardLibrary1.Googol
 {
     public class GtsIOCard : IMotionCard
     {
+        private int _parentId;
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -29,17 +32,37 @@ namespace Automation.Base.MotionCardLibrary1.Googol
 
         public bool Initialize()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool Terminate()
         {
-            throw new NotImplementedException();
+            var ret = mc.GT_CloseExtMdl((short)_parentId);
+            if (ret != 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool LoadParams(string configFileName, params object[] objects)
         {
-            throw new NotImplementedException();
+            var configs = configFileName.Split('_');
+            _parentId = int.Parse(configs[1]);
+            Id = int.Parse(configs[2]);
+
+            var ret = mc.GT_OpenExtMdl((short)_parentId, "gts.dll");
+            if (ret != 0)
+            {
+                return false;
+            }
+
+            ret = mc.GT_LoadExtConfig((short)_parentId, configs[0] + ".cfg");
+            if (ret != 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool ClearAlarm(int index, int i)
@@ -49,17 +72,40 @@ namespace Automation.Base.MotionCardLibrary1.Googol
 
         public int GetDo(int index, int port, out int status)
         {
-            throw new NotImplementedException();
+            ushort sts = 0;
+            status = 0;
+            int ret = mc.GT_GetExtDoValue((short)_parentId, (short)Id, ref sts);
+            if (ret != 0)
+            {
+                return -1;
+            }
+            status = (sts & (1 << index)) != 0 ? 0 : 1;
+            return 0;
         }
 
         public int SetDo(int index, int port, int status)
         {
-            throw new NotImplementedException();
+            status = status != 0 ? 0 : 1;
+            int ret = mc.GT_SetExtIoBit((short)_parentId, (short)Id, (short)port, (ushort)status);
+            if (ret != 0)
+            {
+                return -1;
+            }
+            return 0;
         }
 
         public int GetDi(int index, int port, out int status)
         {
-            throw new NotImplementedException();
+            ushort sts = 0;
+            status = 0;
+            int ret = mc.GT_GetExtIoValue((short)_parentId, (short)Id, ref sts);
+            if (ret != 0)
+            {
+                return -1;
+            }
+
+            status = (sts & (1 << port)) == 0 ? 1 : 0;
+            return 0;
         }
 
         public int SetDi(int index, int port, int status)
