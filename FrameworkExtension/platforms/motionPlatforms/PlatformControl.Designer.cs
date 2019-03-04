@@ -171,7 +171,6 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.comboBoxPlatformDisplayMode = new System.Windows.Forms.ComboBox();
             this.groupBoxPos.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -790,7 +789,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.comboBoxPlatformDisplayMode);
             this.tabPage1.Controls.Add(this.buttonZ_Minus);
             this.tabPage1.Controls.Add(this.buttonX_Minus);
             this.tabPage1.Controls.Add(this.buttonY_Plus);
@@ -1724,15 +1722,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // comboBoxPlatformDisplayMode
-            // 
-            this.comboBoxPlatformDisplayMode.FormattingEnabled = true;
-            this.comboBoxPlatformDisplayMode.Location = new System.Drawing.Point(3, 3);
-            this.comboBoxPlatformDisplayMode.Name = "comboBoxPlatformDisplayMode";
-            this.comboBoxPlatformDisplayMode.Size = new System.Drawing.Size(83, 20);
-            this.comboBoxPlatformDisplayMode.TabIndex = 1;
-            this.comboBoxPlatformDisplayMode.SelectedIndexChanged += new System.EventHandler(this.comboBoxPlatformDisplayMode_SelectedIndexChanged);
-            // 
             // PlatformControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1913,6 +1902,5 @@
         private System.Windows.Forms.TextBox textBoxY_Org;
         private System.Windows.Forms.TextBox textBoxU_Org;
         private System.Windows.Forms.TextBox textBoxX_Org;
-        private System.Windows.Forms.ComboBox comboBoxPlatformDisplayMode;
     }
 }

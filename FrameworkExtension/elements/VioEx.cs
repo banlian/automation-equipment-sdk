@@ -53,6 +53,10 @@ namespace Automation.FrameworkExtension.elements
 
             Id = id;
             Name = data[i++];
+            if (string.IsNullOrEmpty(Name))
+            {
+                Name = $"备用{id}";
+            }
             Type = (VioType)Enum.Parse(typeof(VioType), data[i++]);
             Description = data[i++];
             DriverName = data[i++];

@@ -53,6 +53,10 @@ namespace Automation.FrameworkExtension.elements
             int id = int.Parse(data[i++]);
             Id = id;
             Name = data[i++];
+            if (string.IsNullOrEmpty(Name))
+            {
+                Name = $"备用{id}";
+            }
             Type = (DiType)Enum.Parse(typeof(DiType), data[i++]);
             Description = data[i++];
             DriverName = data[i++];

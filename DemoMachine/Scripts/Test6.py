@@ -8,27 +8,19 @@ import sys
 print(sys.path)
 import time
 
-
 try:
 	print(state)
-
 	if state == RunningState.Resetting:
 		t.Log(t.Name)
 		t.Log("Run Script Resetting", LogLevel.Debug)
-		LightGreen.SetDo(False)
 		
-		t.Log("Run Script Resetting Finish", LogLevel.Debug)
 		pass
 		
 	elif state == RunningState.Running:
-	
-		
 		while True:
-	
 			t.Log(t.Name)
 			t.Log("Run Script Running", LogLevel.Debug)
-			
-			
+
 		pass
 	else:
 		print('state not equal to any')

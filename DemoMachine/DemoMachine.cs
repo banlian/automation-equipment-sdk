@@ -7,6 +7,7 @@ using Automation.FrameworkExtension.elements;
 using Automation.FrameworkExtension.frameworkManage;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
+using Automation.FrameworkScriptExtension.FrameworkScript;
 using DemoMachine.Tasks;
 
 namespace DemoMachine
@@ -58,6 +59,7 @@ namespace DemoMachine
             catch (Exception ex)
             {
                 MessageBox.Show($"导入设备参数失败：{ex.Message}");
+                Application.Exit();
             }
         }
 
@@ -116,7 +118,60 @@ namespace DemoMachine
                     }
                 }
             }
+
+
+            //create default task
+            foreach (var t in Tasks)
+            {
+                if (t.Value is PyScriptTask)
+                {
+                    var scriptFile = $@".\Scripts\{t.Value.Name}.py";
+                    if (!File.Exists(scriptFile))
+                    {
+                        using (var fs = new FileStream(scriptFile, FileMode.OpenOrCreate))
+                        {
+                            using (var sw = new StreamWriter(fs, Encoding.UTF8))
+                            {
+                                sw.WriteLine(DefaultTaskContent);
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+
+        private static string DefaultTaskContent = "from Automation.FrameworkExtension.common import *\r\n"
+                                            + "from Automation.FrameworkExtension.stateMachine import *\r\n"
+                                            + "from Automation.FrameworkExtension import *\r\n"
+                                            + "import clr\r\n"
+                                            + "clr.ImportExtensions(motionDriver)\r\n"
+                                            + "\r\n"
+                                            + "import sys\r\n"
+                                            + "print(sys.path)\r\n"
+                                            + "import time\r\n"
+                                            + "\r\n"
+                                            + "try:\r\n"
+                                            + "	print(state)\r\n"
+                                            + "	if state == RunningState.Resetting:\r\n"
+                                            + "		t.Log(t.Name)\r\n"
+                                            + "		t.Log(\"Run Script Resetting\", LogLevel.Debug)\r\n"
+                                            + "		\r\n"
+                                            + "		pass\r\n"
+                                            + "		\r\n"
+                                            + "	elif state == RunningState.Running:\r\n"
+                                            + "		while True:\r\n"
+                                            + "			t.Log(t.Name)\r\n"
+                                            + "			t.Log(\"Run Script Running\", LogLevel.Debug)\r\n"
+                                            + "\r\n"
+                                            + "		pass\r\n"
+                                            + "	else:\r\n"
+                                            + "		print('state not equal to any')\r\n"
+                                            + "		\r\n"
+                                            + "except Exception as e:\r\n"
+                                            + "	t.Log(str(e), LogLevel.Error)\r\n"
+                                            + "	print(e)";
+
 
         public override void Save()
         {
@@ -146,13 +201,13 @@ namespace DemoMachine
 
                 //load di do axis
 
-                DiExs.Add(1, new DiEx {Driver = Motion1});
+                DiExs.Add(1, new DiEx { Driver = Motion1 });
 
-                DoExs.Add(1, new DoEx {Driver = Motion1});
+                DoExs.Add(1, new DoEx { Driver = Motion1 });
 
-                CylinderExs.Add(1, new CylinderEx {Driver1 = Motion1, Driver2 = Motion1});
+                CylinderExs.Add(1, new CylinderEx { Driver1 = Motion1, Driver2 = Motion1 });
 
-                AxisExs.Add(1, new AxisEx {Driver = Motion1});
+                AxisExs.Add(1, new AxisEx { Driver = Motion1 });
 
                 //load station task
                 var station1 = new Station(1, "Station1", this);
@@ -163,27 +218,27 @@ namespace DemoMachine
                 {
                     // todo : to add signal configs
                     //estop
-                    DiEstop.Add(2, new DiEx {Driver = Motion1});
+                    DiEstop.Add(2, new DiEx { Driver = Motion1 });
 
                     //start/stop/reset button
-                    DiStart.Add(1, new DiEx {Driver = Motion1});
-                    DiStop.Add(1, new DiEx {Driver = Motion1});
-                    DiReset.Add(1, new DiEx {Driver = Motion1});
+                    DiStart.Add(1, new DiEx { Driver = Motion1 });
+                    DiStop.Add(1, new DiEx { Driver = Motion1 });
+                    DiReset.Add(1, new DiEx { Driver = Motion1 });
 
                     //start/stop/reset button lamp
-                    DoLightGreen.Add(1, new DoEx {Driver = Motion1});
-                    DoLightRed.Add(1, new DoEx {Driver = Motion1});
-                    DoLightYellow.Add(1, new DoEx {Driver = Motion1});
+                    DoLightGreen.Add(1, new DoEx { Driver = Motion1 });
+                    DoLightRed.Add(1, new DoEx { Driver = Motion1 });
+                    DoLightYellow.Add(1, new DoEx { Driver = Motion1 });
 
                     //lamp
-                    DoLightGreen.Add(2, new DoEx {Driver = Motion1});
-                    DoLightRed.Add(2, new DoEx {Driver = Motion1});
-                    DoLightYellow.Add(2, new DoEx {Driver = Motion1});
-                    DoBuzzer.Add(1, new DoEx {Driver = Motion1});
+                    DoLightGreen.Add(2, new DoEx { Driver = Motion1 });
+                    DoLightRed.Add(2, new DoEx { Driver = Motion1 });
+                    DoLightYellow.Add(2, new DoEx { Driver = Motion1 });
+                    DoBuzzer.Add(1, new DoEx { Driver = Motion1 });
 
 
                     //station pause signals
-                    Stations[1].PauseSignals.Add(1, new DiEx {Driver = Motion1});
+                    Stations[1].PauseSignals.Add(1, new DiEx { Driver = Motion1 });
                 }
             }
         }

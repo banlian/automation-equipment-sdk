@@ -15,8 +15,6 @@ try:
 	if state == RunningState.Resetting:
 		t.Log(t.Name)
 		t.Log("Run Script Resetting", LogLevel.Debug)
-		Cy1.SetDo(t, False)
-		LightGreen.SetDo(False)
 		
 		t.Log("laser measure val:"+str(Laser1.Measure()[0]))
 		
@@ -25,25 +23,9 @@ try:
 		
 	elif state == RunningState.Running:
 	
-		isset = 0
 		while True:
-	
 			t.Log(t.Name)
 			t.Log("Run Script Running", LogLevel.Debug)
-			
-			if isset == 0:
-				isset = 1
-				LightGreen.SetDo(True)
-				Cy1.SetDo(t)
-				print('set cy1')
-			else:
-				isset = 0
-				Cy1.SetDo(t, False)
-				LightGreen.SetDo(False)
-				print('reset cy1')
-			
-			time.sleep(1)
-			
 		pass
 	else:
 		print('state not equal to any')
