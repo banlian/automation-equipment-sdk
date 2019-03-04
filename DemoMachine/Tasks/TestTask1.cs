@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Automation.FrameworkExtension.common;
+﻿using Automation.FrameworkExtension.common;
 using Automation.FrameworkExtension.stateMachine;
 
-namespace DemoMachine.Machine.Tasks
+namespace DemoMachine.Tasks
 {
     class TestTask1 : StationTask
     {

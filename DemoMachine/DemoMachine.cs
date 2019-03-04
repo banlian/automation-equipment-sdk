@@ -7,9 +7,9 @@ using Automation.FrameworkExtension.elements;
 using Automation.FrameworkExtension.frameworkManage;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
-using DemoMachine.Machine.Tasks;
+using DemoMachine.Tasks;
 
-namespace DemoMachine.Machine
+namespace DemoMachine
 {
     public class DemoMachine : StateMachine
     {
@@ -67,43 +67,50 @@ namespace DemoMachine.Machine
             {
                 using (var sw = new StreamWriter(fs, Encoding.UTF8))
                 {
-                    sw.WriteLine("DiExs");
+                    sw.WriteLine("DiExs:");
                     foreach (var obj in this.DiExs)
                     {
                         sw.WriteLine(obj.Value.Name);
                     }
 
                     sw.WriteLine();
-                    sw.WriteLine("DoExs");
+                    sw.WriteLine("DoExs:");
                     foreach (var obj in this.DoExs)
                     {
                         sw.WriteLine(obj.Value.Name);
                     }
 
                     sw.WriteLine();
-                    sw.WriteLine("VioExs");
+                    sw.WriteLine("VioExs:");
                     foreach (var obj in this.VioExs)
                     {
                         sw.WriteLine(obj.Value.Name);
                     }
 
                     sw.WriteLine();
-                    sw.WriteLine("CylinderExs");
+                    sw.WriteLine("CylinderExs:");
                     foreach (var obj in this.CylinderExs)
                     {
                         sw.WriteLine(obj.Value.Name);
                     }
 
                     sw.WriteLine();
-                    sw.WriteLine("AxisExs");
+                    sw.WriteLine("AxisExs:");
                     foreach (var obj in this.AxisExs)
                     {
                         sw.WriteLine(obj.Value.Name);
                     }
 
                     sw.WriteLine();
-                    sw.WriteLine("Platforms");
+                    sw.WriteLine("Platforms:");
                     foreach (var obj in this.Platforms)
+                    {
+                        sw.WriteLine(obj.Value.Name);
+                    }
+
+                    sw.WriteLine();
+                    sw.WriteLine("Devices:");
+                    foreach (var obj in this.Devices)
                     {
                         sw.WriteLine(obj.Value.Name);
                     }

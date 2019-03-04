@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using Automation.Base.DeviceMeasureClassLibrary;
 using Automation.FrameworkExtension.stateMachine;
 
 namespace DeviceMeasureClassLibrary
@@ -51,6 +53,13 @@ namespace DeviceMeasureClassLibrary
         public bool Terminate()
         {
             return true;
+        }
+
+        public UserControl CreateDeviceControl()
+        {
+            var lc = new LaserBaseControl();
+            lc.LoadDevice(this);
+            return lc;
         }
 
         public double[] Measure()

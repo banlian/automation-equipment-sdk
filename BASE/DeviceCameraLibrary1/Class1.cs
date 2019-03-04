@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Automation.FrameworkExtension.deviceDriver;
 using Automation.FrameworkExtension.elementsInterfaces;
 using Automation.FrameworkExtension.stateMachine;
@@ -35,6 +36,11 @@ namespace DeviceCameraLibrary1
         public bool Terminate()
         {
             throw new NotImplementedException();
+        }
+
+        public UserControl CreateDeviceControl()
+        {
+            return null;
         }
     }
 }

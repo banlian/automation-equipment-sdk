@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
 using LMotionCardLib.LDriver.Googol;
@@ -62,6 +63,11 @@ namespace Automation.Base.MotionCardLibrary1.Googol
             }
 
             return true;
+        }
+
+        public UserControl CreateDeviceControl()
+        {
+            return null;
         }
 
         public bool LoadParams(string configFileName, params object[] objects)

@@ -1,6 +1,6 @@
 ﻿using Automation.FrameworkExtension.common;
 
-namespace DemoMachine.Machine
+namespace DemoMachine
 {
     public class DemoMachineSettings : UserSettings<DemoMachineSettings>
     {

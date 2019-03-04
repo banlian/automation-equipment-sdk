@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageIO = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.diControl1 = new Automation.FrameworkExtension.userControls.DiControl();
@@ -37,15 +37,17 @@
             this.cylinderControl1 = new Automation.FrameworkExtension.userControls.CylinderControl();
             this.tabPageVIO = new System.Windows.Forms.TabPage();
             this.vioControl1 = new Automation.FrameworkExtension.userControls.VioControl();
-            this.tabPagePLATFORM = new System.Windows.Forms.TabPage();
+            this.tabPagePLATFORMS = new System.Windows.Forms.TabPage();
             this.tabControlPlatforms = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPagePlatform = new System.Windows.Forms.TabPage();
             this.tabPageSETTINGS = new System.Windows.Forms.TabPage();
             this.propertyGridSettings = new System.Windows.Forms.PropertyGrid();
             this.tabPageMachine = new System.Windows.Forms.TabPage();
             this.tabControlMachine = new System.Windows.Forms.TabControl();
-            this.tabControl1.SuspendLayout();
+            this.tabPageDEVICES = new System.Windows.Forms.TabPage();
+            this.tabControlDevices = new System.Windows.Forms.TabControl();
+            this.tabPageDevice = new System.Windows.Forms.TabPage();
+            this.tabControlMain.SuspendLayout();
             this.tabPageIO.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -53,27 +55,30 @@
             this.splitContainer1.SuspendLayout();
             this.tabPageCY.SuspendLayout();
             this.tabPageVIO.SuspendLayout();
-            this.tabPagePLATFORM.SuspendLayout();
+            this.tabPagePLATFORMS.SuspendLayout();
             this.tabControlPlatforms.SuspendLayout();
             this.tabPageSETTINGS.SuspendLayout();
             this.tabPageMachine.SuspendLayout();
+            this.tabPageDEVICES.SuspendLayout();
+            this.tabControlDevices.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabControlMain
             // 
-            this.tabControl1.Controls.Add(this.tabPageIO);
-            this.tabControl1.Controls.Add(this.tabPageCY);
-            this.tabControl1.Controls.Add(this.tabPageVIO);
-            this.tabControl1.Controls.Add(this.tabPagePLATFORM);
-            this.tabControl1.Controls.Add(this.tabPageSETTINGS);
-            this.tabControl1.Controls.Add(this.tabPageMachine);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.ItemSize = new System.Drawing.Size(60, 40);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 450);
-            this.tabControl1.TabIndex = 0;
+            this.tabControlMain.Controls.Add(this.tabPageIO);
+            this.tabControlMain.Controls.Add(this.tabPageCY);
+            this.tabControlMain.Controls.Add(this.tabPageVIO);
+            this.tabControlMain.Controls.Add(this.tabPagePLATFORMS);
+            this.tabControlMain.Controls.Add(this.tabPageDEVICES);
+            this.tabControlMain.Controls.Add(this.tabPageSETTINGS);
+            this.tabControlMain.Controls.Add(this.tabPageMachine);
+            this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlMain.ItemSize = new System.Drawing.Size(60, 40);
+            this.tabControlMain.Location = new System.Drawing.Point(0, 0);
+            this.tabControlMain.Name = "tabControlMain";
+            this.tabControlMain.SelectedIndex = 0;
+            this.tabControlMain.Size = new System.Drawing.Size(800, 450);
+            this.tabControlMain.TabIndex = 0;
             // 
             // tabPageIO
             // 
@@ -156,20 +161,19 @@
             this.vioControl1.Size = new System.Drawing.Size(792, 402);
             this.vioControl1.TabIndex = 0;
             // 
-            // tabPagePLATFORM
+            // tabPagePLATFORMS
             // 
-            this.tabPagePLATFORM.Controls.Add(this.tabControlPlatforms);
-            this.tabPagePLATFORM.Location = new System.Drawing.Point(4, 44);
-            this.tabPagePLATFORM.Name = "tabPagePLATFORM";
-            this.tabPagePLATFORM.Size = new System.Drawing.Size(792, 402);
-            this.tabPagePLATFORM.TabIndex = 2;
-            this.tabPagePLATFORM.Text = "平台运动";
-            this.tabPagePLATFORM.UseVisualStyleBackColor = true;
+            this.tabPagePLATFORMS.Controls.Add(this.tabControlPlatforms);
+            this.tabPagePLATFORMS.Location = new System.Drawing.Point(4, 44);
+            this.tabPagePLATFORMS.Name = "tabPagePLATFORMS";
+            this.tabPagePLATFORMS.Size = new System.Drawing.Size(792, 402);
+            this.tabPagePLATFORMS.TabIndex = 2;
+            this.tabPagePLATFORMS.Text = "平台运动";
+            this.tabPagePLATFORMS.UseVisualStyleBackColor = true;
             // 
             // tabControlPlatforms
             // 
-            this.tabControlPlatforms.Controls.Add(this.tabPage1);
-            this.tabControlPlatforms.Controls.Add(this.tabPage2);
+            this.tabControlPlatforms.Controls.Add(this.tabPagePlatform);
             this.tabControlPlatforms.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlPlatforms.ItemSize = new System.Drawing.Size(60, 30);
             this.tabControlPlatforms.Location = new System.Drawing.Point(0, 0);
@@ -178,25 +182,15 @@
             this.tabControlPlatforms.Size = new System.Drawing.Size(792, 402);
             this.tabControlPlatforms.TabIndex = 0;
             // 
-            // tabPage1
+            // tabPagePlatform
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 34);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(784, 364);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 34);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(784, 364);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPagePlatform.Location = new System.Drawing.Point(4, 34);
+            this.tabPagePlatform.Name = "tabPagePlatform";
+            this.tabPagePlatform.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePlatform.Size = new System.Drawing.Size(784, 364);
+            this.tabPagePlatform.TabIndex = 0;
+            this.tabPagePlatform.Text = "平台";
+            this.tabPagePlatform.UseVisualStyleBackColor = true;
             // 
             // tabPageSETTINGS
             // 
@@ -236,17 +230,48 @@
             this.tabControlMachine.Size = new System.Drawing.Size(786, 396);
             this.tabControlMachine.TabIndex = 0;
             // 
+            // tabPageDEVICES
+            // 
+            this.tabPageDEVICES.Controls.Add(this.tabControlDevices);
+            this.tabPageDEVICES.Location = new System.Drawing.Point(4, 44);
+            this.tabPageDEVICES.Name = "tabPageDEVICES";
+            this.tabPageDEVICES.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDEVICES.Size = new System.Drawing.Size(792, 402);
+            this.tabPageDEVICES.TabIndex = 6;
+            this.tabPageDEVICES.Text = "设备组件";
+            this.tabPageDEVICES.UseVisualStyleBackColor = true;
+            // 
+            // tabControlDevices
+            // 
+            this.tabControlDevices.Controls.Add(this.tabPageDevice);
+            this.tabControlDevices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlDevices.ItemSize = new System.Drawing.Size(60, 30);
+            this.tabControlDevices.Location = new System.Drawing.Point(3, 3);
+            this.tabControlDevices.Name = "tabControlDevices";
+            this.tabControlDevices.SelectedIndex = 0;
+            this.tabControlDevices.Size = new System.Drawing.Size(786, 396);
+            this.tabControlDevices.TabIndex = 1;
+            // 
+            // tabPageDevice
+            // 
+            this.tabPageDevice.Location = new System.Drawing.Point(4, 34);
+            this.tabPageDevice.Name = "tabPageDevice";
+            this.tabPageDevice.Size = new System.Drawing.Size(778, 358);
+            this.tabPageDevice.TabIndex = 0;
+            this.tabPageDevice.Text = "组件";
+            this.tabPageDevice.UseVisualStyleBackColor = true;
+            // 
             // MainConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControlMain);
             this.Name = "MainConfigForm";
             this.Text = "配置";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainConfigForm_FormClosing);
             this.Load += new System.EventHandler(this.MainConfigForm_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlMain.ResumeLayout(false);
             this.tabPageIO.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -254,25 +279,26 @@
             this.splitContainer1.ResumeLayout(false);
             this.tabPageCY.ResumeLayout(false);
             this.tabPageVIO.ResumeLayout(false);
-            this.tabPagePLATFORM.ResumeLayout(false);
+            this.tabPagePLATFORMS.ResumeLayout(false);
             this.tabControlPlatforms.ResumeLayout(false);
             this.tabPageSETTINGS.ResumeLayout(false);
             this.tabPageMachine.ResumeLayout(false);
+            this.tabPageDEVICES.ResumeLayout(false);
+            this.tabControlDevices.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageIO;
         private System.Windows.Forms.TabPage tabPageCY;
-        private System.Windows.Forms.TabPage tabPagePLATFORM;
+        private System.Windows.Forms.TabPage tabPagePLATFORMS;
         private System.Windows.Forms.TabPage tabPageVIO;
         private System.Windows.Forms.TabPage tabPageSETTINGS;
         private System.Windows.Forms.TabControl tabControlPlatforms;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPagePlatform;
         private Automation.FrameworkExtension.userControls.VioControl vioControl1;
         private Automation.FrameworkExtension.userControls.CylinderControl cylinderControl1;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -281,5 +307,8 @@
         private System.Windows.Forms.PropertyGrid propertyGridSettings;
         private System.Windows.Forms.TabPage tabPageMachine;
         private System.Windows.Forms.TabControl tabControlMachine;
+        private System.Windows.Forms.TabPage tabPageDEVICES;
+        private System.Windows.Forms.TabControl tabControlDevices;
+        private System.Windows.Forms.TabPage tabPageDevice;
     }
 }

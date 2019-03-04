@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Windows.Forms;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
 
@@ -34,6 +35,11 @@ namespace Automation.Base.MotionCardLibrary1
         {
             LTDMC.dmc_board_close();
             return true;
+        }
+
+        public UserControl CreateDeviceControl()
+        {
+            return null;
         }
 
         public bool LoadParams(string configFileName, params object[] objects)

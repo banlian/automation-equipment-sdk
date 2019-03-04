@@ -1,4 +1,5 @@
-﻿using Automation.FrameworkExtension.elementsInterfaces;
+﻿using System.Windows.Forms;
+using Automation.FrameworkExtension.elementsInterfaces;
 
 namespace Automation.FrameworkExtension.deviceDriver
 {
@@ -15,5 +16,6 @@ namespace Automation.FrameworkExtension.deviceDriver
         bool Initialize();
 
         bool Terminate();
+        UserControl CreateDeviceControl();
     }
 }

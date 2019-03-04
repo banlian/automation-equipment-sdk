@@ -29,17 +29,17 @@ namespace DemoMachine
         }
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            Machine.DemoMachine.Ins.Start();
+            DemoMachine.Ins.Start();
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            Machine.DemoMachine.Ins.Stop();
+            DemoMachine.Ins.Stop();
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
-            Machine.DemoMachine.Ins.Reset();
+            DemoMachine.Ins.Reset();
         }
 
         private void MainMachineForm_FormClosing(object sender, FormClosingEventArgs e)

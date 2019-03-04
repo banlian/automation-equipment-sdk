@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
@@ -70,6 +71,11 @@ namespace Automation.Base.VirtualCardLibrary
         public bool Terminate()
         {
             return true;
+        }
+
+        public UserControl CreateDeviceControl()
+        {
+            return null;
         }
 
         public bool LoadParams(string configFileName, params object[] objects)

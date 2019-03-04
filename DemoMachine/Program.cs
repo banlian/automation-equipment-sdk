@@ -41,8 +41,8 @@ namespace DemoMachine
 
                 //初始化
                 //initialize machine settings
-                Machine.DemoMachine.Ins.Load();
-                Machine.DemoMachine.Ins.Initialize();
+                DemoMachine.Ins.Load();
+                DemoMachine.Ins.Initialize();
             }
             catch (Exception ex)
             {
@@ -62,8 +62,8 @@ namespace DemoMachine
             {
                 try
                 {
-                    Machine.DemoMachine.Ins.Terminate();
-                    Machine.DemoMachine.Ins.Save();
+                    DemoMachine.Ins.Terminate();
+                    DemoMachine.Ins.Save();
 
                     FrameworkManager.Ins.Terminate();
                     FrameworkManager.Ins.Save(@".\Config\framework.cfg");

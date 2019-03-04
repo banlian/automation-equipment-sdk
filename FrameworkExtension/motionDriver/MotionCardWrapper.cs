@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using Automation.FrameworkExtension.deviceDriver;
 using Automation.FrameworkExtension.elementsInterfaces;
 using Automation.FrameworkExtension.frameworkManage;
@@ -47,6 +48,11 @@ namespace Automation.FrameworkExtension.motionDriver
         {
             Motion.Terminate();
             return true;
+        }
+
+        public UserControl CreateDeviceControl()
+        {
+            return null;
         }
 
         #region io operations

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
 using LMotionCardLib.LDriver.Googol;
@@ -43,6 +44,11 @@ namespace Automation.Base.MotionCardLibrary1.Googol
                 return false;
             }
             return true;
+        }
+
+        public UserControl CreateDeviceControl()
+        {
+            return null;
         }
 
         public bool LoadParams(string configFileName, params object[] objects)

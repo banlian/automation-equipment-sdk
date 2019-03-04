@@ -31,7 +31,7 @@ namespace DemoMachine
             _alarmForm.Show(dockPanel1, DockState.Document);
             _configForm.Show(dockPanel1, DockState.Document);
 
-            foreach (var stationTask in Machine.DemoMachine.Ins.Tasks)
+            foreach (var stationTask in DemoMachine.Ins.Tasks)
             {
                 stationTask.Value.LogEvent += (s, level) =>
                 {
@@ -79,7 +79,7 @@ namespace DemoMachine
         private void 设备信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var mf = new MachineForm();
-            mf.Machine = Machine.DemoMachine.Ins;
+            mf.Machine = DemoMachine.Ins;
 
             mf.ShowDialog();
         }

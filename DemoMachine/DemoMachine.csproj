@@ -68,7 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Machine\DemoMachineSettings.cs" />
+    <Compile Include="DemoMachineSettings.cs" />
     <Compile Include="MainConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,8 +81,8 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Machine\DemoMachine.cs" />
-    <Compile Include="Machine\Tasks\TestTask1.cs" />
+    <Compile Include="DemoMachine.cs" />
+    <Compile Include="Tasks\TestTask1.cs" />
     <Compile Include="MainMachineForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -24,29 +24,28 @@ namespace DemoMachine
         {
             HideOnClose = true;
 
-            diControl1.DiExs = Machine.DemoMachine.Ins.DiExs.Values.ToList();
+            diControl1.DiExs = DemoMachine.Ins.DiExs.Values.ToList();
             diControl1.LoadFramework();
             diControl1.FrameworkActivate();
 
 
-            doControl1.DoExs = Machine.DemoMachine.Ins.DoExs.Values.ToList();
+            doControl1.DoExs = DemoMachine.Ins.DoExs.Values.ToList();
             doControl1.LoadFramework();
             doControl1.FrameworkActivate();
 
-            cylinderControl1.CyExs = Machine.DemoMachine.Ins.CylinderExs.Values.ToList();
+            cylinderControl1.CyExs = DemoMachine.Ins.CylinderExs.Values.ToList();
             cylinderControl1.LoadFramework();
             cylinderControl1.FrameworkActivate();
 
 
-            vioControl1.VioExs = Machine.DemoMachine.Ins.VioExs.Values.ToList();
+            vioControl1.VioExs = DemoMachine.Ins.VioExs.Values.ToList();
             vioControl1.LoadFramework();
             vioControl1.FrameworkActivate();
 
 
             tabControlPlatforms.TabPages.Clear();
 
-
-            foreach (var p in Machine.DemoMachine.Ins.Platforms.Values)
+            foreach (var p in DemoMachine.Ins.Platforms.Values)
             {
                 var platformControl = new PlatformControl()
                 {
@@ -63,8 +62,27 @@ namespace DemoMachine
                 });
             }
 
+
+
+            tabControlDevices.TabPages.Clear();
+
+            foreach (var p in DemoMachine.Ins.Devices.Values)
+            {
+                var uc = p.CreateDeviceControl();
+                uc.Dock = DockStyle.Fill;
+
+                tabControlDevices.TabPages.Add(new TabPage($"{p.Name} {p.Description}")
+                {
+                    Controls =
+                    {
+                        uc,
+                    }
+                });
+            }
+
+
             tabControlMachine.TabPages.Clear();
-            foreach (var s in Machine.DemoMachine.Ins.Stations)
+            foreach (var s in DemoMachine.Ins.Stations)
             {
                 tabControlMachine.TabPages.Add(new TabPage($"{s.Value.Name} {s.Value.Description}")
                 {
@@ -82,7 +100,7 @@ namespace DemoMachine
             }
 
 
-            propertyGridSettings.SelectedObject = Machine.DemoMachine.Ins.Settings;
+            propertyGridSettings.SelectedObject = DemoMachine.Ins.Settings;
             propertyGridSettings.ExpandAllGridItems();
         }
 
