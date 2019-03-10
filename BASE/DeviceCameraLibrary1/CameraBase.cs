@@ -1,21 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Automation.Base.DeviceMeasureClassLibrary;
+using Automation.Base.DeviceCameraLibrary1;
 using Automation.FrameworkExtension.deviceDriver;
+using Automation.FrameworkExtension.elementsInterfaces;
 using Automation.FrameworkExtension.stateMachine;
 
-namespace DeviceMeasureClassLibrary
+namespace DeviceCameraLibrary1
 {
-    public class LaserBase : DeviceBase, ILaser
+    public class CameraBase : DeviceBase, ICamera
     {
+        public Bitmap Snap()
+        {
+            return new Bitmap(1024, 768);
+        }
+
         public override bool Initialize()
         {
             return true;
         }
+
         public override bool Terminate()
         {
             return true;
@@ -23,14 +32,9 @@ namespace DeviceMeasureClassLibrary
 
         public override UserControl CreateDeviceControl()
         {
-            var lc = new LaserBaseControl();
-            lc.LoadDevice(this);
-            return lc;
-        }
-
-        public double[] Measure()
-        {
-            return new[] { (double)new Random().Next(100) };
+            var control = new CameraBaseControl();
+            control.LoadDevice(this);
+            return control;
         }
     }
 }

@@ -40,13 +40,15 @@
             this.tabPagePLATFORMS = new System.Windows.Forms.TabPage();
             this.tabControlPlatforms = new System.Windows.Forms.TabControl();
             this.tabPagePlatform = new System.Windows.Forms.TabPage();
+            this.tabPageDEVICES = new System.Windows.Forms.TabPage();
+            this.tabControlDevices = new System.Windows.Forms.TabControl();
+            this.tabPageDevice = new System.Windows.Forms.TabPage();
             this.tabPageSETTINGS = new System.Windows.Forms.TabPage();
             this.propertyGridSettings = new System.Windows.Forms.PropertyGrid();
             this.tabPageMachine = new System.Windows.Forms.TabPage();
             this.tabControlMachine = new System.Windows.Forms.TabControl();
-            this.tabPageDEVICES = new System.Windows.Forms.TabPage();
-            this.tabControlDevices = new System.Windows.Forms.TabControl();
-            this.tabPageDevice = new System.Windows.Forms.TabPage();
+            this.tabPageScriptTasks = new System.Windows.Forms.TabPage();
+            this.tabControlScripts = new System.Windows.Forms.TabControl();
             this.tabControlMain.SuspendLayout();
             this.tabPageIO.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -57,10 +59,11 @@
             this.tabPageVIO.SuspendLayout();
             this.tabPagePLATFORMS.SuspendLayout();
             this.tabControlPlatforms.SuspendLayout();
-            this.tabPageSETTINGS.SuspendLayout();
-            this.tabPageMachine.SuspendLayout();
             this.tabPageDEVICES.SuspendLayout();
             this.tabControlDevices.SuspendLayout();
+            this.tabPageSETTINGS.SuspendLayout();
+            this.tabPageMachine.SuspendLayout();
+            this.tabPageScriptTasks.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -72,6 +75,7 @@
             this.tabControlMain.Controls.Add(this.tabPageDEVICES);
             this.tabControlMain.Controls.Add(this.tabPageSETTINGS);
             this.tabControlMain.Controls.Add(this.tabPageMachine);
+            this.tabControlMain.Controls.Add(this.tabPageScriptTasks);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.ItemSize = new System.Drawing.Size(60, 40);
             this.tabControlMain.Location = new System.Drawing.Point(0, 0);
@@ -192,6 +196,37 @@
             this.tabPagePlatform.Text = "平台";
             this.tabPagePlatform.UseVisualStyleBackColor = true;
             // 
+            // tabPageDEVICES
+            // 
+            this.tabPageDEVICES.Controls.Add(this.tabControlDevices);
+            this.tabPageDEVICES.Location = new System.Drawing.Point(4, 44);
+            this.tabPageDEVICES.Name = "tabPageDEVICES";
+            this.tabPageDEVICES.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDEVICES.Size = new System.Drawing.Size(792, 402);
+            this.tabPageDEVICES.TabIndex = 6;
+            this.tabPageDEVICES.Text = "设备组件";
+            this.tabPageDEVICES.UseVisualStyleBackColor = true;
+            // 
+            // tabControlDevices
+            // 
+            this.tabControlDevices.Controls.Add(this.tabPageDevice);
+            this.tabControlDevices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlDevices.ItemSize = new System.Drawing.Size(60, 30);
+            this.tabControlDevices.Location = new System.Drawing.Point(3, 3);
+            this.tabControlDevices.Name = "tabControlDevices";
+            this.tabControlDevices.SelectedIndex = 0;
+            this.tabControlDevices.Size = new System.Drawing.Size(786, 396);
+            this.tabControlDevices.TabIndex = 1;
+            // 
+            // tabPageDevice
+            // 
+            this.tabPageDevice.Location = new System.Drawing.Point(4, 34);
+            this.tabPageDevice.Name = "tabPageDevice";
+            this.tabPageDevice.Size = new System.Drawing.Size(778, 358);
+            this.tabPageDevice.TabIndex = 0;
+            this.tabPageDevice.Text = "组件";
+            this.tabPageDevice.UseVisualStyleBackColor = true;
+            // 
             // tabPageSETTINGS
             // 
             this.tabPageSETTINGS.Controls.Add(this.propertyGridSettings);
@@ -230,36 +265,24 @@
             this.tabControlMachine.Size = new System.Drawing.Size(786, 396);
             this.tabControlMachine.TabIndex = 0;
             // 
-            // tabPageDEVICES
+            // tabPageScriptTasks
             // 
-            this.tabPageDEVICES.Controls.Add(this.tabControlDevices);
-            this.tabPageDEVICES.Location = new System.Drawing.Point(4, 44);
-            this.tabPageDEVICES.Name = "tabPageDEVICES";
-            this.tabPageDEVICES.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDEVICES.Size = new System.Drawing.Size(792, 402);
-            this.tabPageDEVICES.TabIndex = 6;
-            this.tabPageDEVICES.Text = "设备组件";
-            this.tabPageDEVICES.UseVisualStyleBackColor = true;
+            this.tabPageScriptTasks.Controls.Add(this.tabControlScripts);
+            this.tabPageScriptTasks.Location = new System.Drawing.Point(4, 44);
+            this.tabPageScriptTasks.Name = "tabPageScriptTasks";
+            this.tabPageScriptTasks.Size = new System.Drawing.Size(792, 402);
+            this.tabPageScriptTasks.TabIndex = 7;
+            this.tabPageScriptTasks.Text = "任务管理";
+            this.tabPageScriptTasks.UseVisualStyleBackColor = true;
             // 
-            // tabControlDevices
+            // tabControlScripts
             // 
-            this.tabControlDevices.Controls.Add(this.tabPageDevice);
-            this.tabControlDevices.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlDevices.ItemSize = new System.Drawing.Size(60, 30);
-            this.tabControlDevices.Location = new System.Drawing.Point(3, 3);
-            this.tabControlDevices.Name = "tabControlDevices";
-            this.tabControlDevices.SelectedIndex = 0;
-            this.tabControlDevices.Size = new System.Drawing.Size(786, 396);
-            this.tabControlDevices.TabIndex = 1;
-            // 
-            // tabPageDevice
-            // 
-            this.tabPageDevice.Location = new System.Drawing.Point(4, 34);
-            this.tabPageDevice.Name = "tabPageDevice";
-            this.tabPageDevice.Size = new System.Drawing.Size(778, 358);
-            this.tabPageDevice.TabIndex = 0;
-            this.tabPageDevice.Text = "组件";
-            this.tabPageDevice.UseVisualStyleBackColor = true;
+            this.tabControlScripts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlScripts.Location = new System.Drawing.Point(0, 0);
+            this.tabControlScripts.Name = "tabControlScripts";
+            this.tabControlScripts.SelectedIndex = 0;
+            this.tabControlScripts.Size = new System.Drawing.Size(792, 402);
+            this.tabControlScripts.TabIndex = 1;
             // 
             // MainConfigForm
             // 
@@ -281,10 +304,11 @@
             this.tabPageVIO.ResumeLayout(false);
             this.tabPagePLATFORMS.ResumeLayout(false);
             this.tabControlPlatforms.ResumeLayout(false);
-            this.tabPageSETTINGS.ResumeLayout(false);
-            this.tabPageMachine.ResumeLayout(false);
             this.tabPageDEVICES.ResumeLayout(false);
             this.tabControlDevices.ResumeLayout(false);
+            this.tabPageSETTINGS.ResumeLayout(false);
+            this.tabPageMachine.ResumeLayout(false);
+            this.tabPageScriptTasks.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -310,5 +334,7 @@
         private System.Windows.Forms.TabPage tabPageDEVICES;
         private System.Windows.Forms.TabControl tabControlDevices;
         private System.Windows.Forms.TabPage tabPageDevice;
+        private System.Windows.Forms.TabPage tabPageScriptTasks;
+        private System.Windows.Forms.TabControl tabControlScripts;
     }
 }

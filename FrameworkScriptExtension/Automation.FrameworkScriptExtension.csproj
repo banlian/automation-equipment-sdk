@@ -56,8 +56,13 @@
     <Reference Include="Microsoft.Scripting.Metadata, Version=1.2.2.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicLanguageRuntime.1.2.2\lib\net45\Microsoft.Scripting.Metadata.dll</HintPath>
     </Reference>
+    <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrameworkScript\PyScriptControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrameworkScript\PyScriptControl.Designer.cs">
+      <DependentUpon>PyScriptControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrameworkScript\PyScriptTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +88,15 @@
       <Project>{4c9e41b2-a358-4168-8ce1-b29169d9c180}</Project>
       <Name>Automation.FrameworkExtension</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FrameworkUtilityLib\Automation.FrameworkUtilityLib.csproj">
+      <Project>{195D7E78-9E4C-4575-A82E-582F378674EA}</Project>
+      <Name>Automation.FrameworkUtilityLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrameworkScript\PyScriptControl.resx">
+      <DependentUpon>PyScriptControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

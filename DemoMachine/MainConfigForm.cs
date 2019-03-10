@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Automation.FrameworkExtension.platforms.motionPlatforms;
 using Automation.FrameworkExtension.stateMachine;
+using Automation.FrameworkScriptExtension.FrameworkScript;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace DemoMachine
@@ -96,7 +97,29 @@ namespace DemoMachine
                         },
                     }
                 });
+            }
 
+
+            tabControlScripts.TabPages.Clear();
+            foreach (var s in DemoMachine.Ins.Tasks)
+            {
+                if (s.Value is PyScriptTask)
+                {
+                    var psc = new PyScriptControl()
+                    {
+                        Dock = DockStyle.Fill,
+                    };
+
+                    psc.LoadTask(s.Value as PyScriptTask);
+
+                    tabControlScripts.TabPages.Add(new TabPage($"{s.Value.Name} {s.Value.Description}")
+                    {
+                        Controls =
+                        {
+                            psc,
+                        }
+                    });
+                }
             }
 
 

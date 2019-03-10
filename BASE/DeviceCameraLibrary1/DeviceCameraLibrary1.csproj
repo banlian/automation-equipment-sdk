@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,7 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CameraBase.cs" />
+    <Compile Include="CameraBaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CameraBaseControl.Designer.cs">
+      <DependentUpon>CameraBaseControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ICamera.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +58,11 @@
       <Project>{4C9E41B2-A358-4168-8CE1-B29169D9C180}</Project>
       <Name>Automation.FrameworkExtension</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CameraBaseControl.resx">
+      <DependentUpon>CameraBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

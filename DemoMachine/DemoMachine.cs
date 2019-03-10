@@ -63,6 +63,9 @@ namespace DemoMachine
             }
         }
 
+        /// <summary>
+        /// write resources can be used for script
+        /// </summary>
         private void OutputScriptResource()
         {
             using (var fs = new FileStream(@".\Scripts\resource.py", FileMode.OpenOrCreate))
@@ -141,7 +144,8 @@ namespace DemoMachine
         }
 
 
-        private static string DefaultTaskContent = "from Automation.FrameworkExtension.common import *\r\n"
+        private static string DefaultTaskContent = 
+                                              "from Automation.FrameworkExtension.common import *\r\n"
                                             + "from Automation.FrameworkExtension.stateMachine import *\r\n"
                                             + "from Automation.FrameworkExtension import *\r\n"
                                             + "import clr\r\n"
@@ -187,62 +191,6 @@ namespace DemoMachine
                 MessageBox.Show($"导出设备参数失败：{ex.Message}");
             }
         }
-
-
-        private void _import_test()
-        {
-            {
-                //load drivers
-                var Motion1 = new MotionCardWrapper(new VirtualCard());
-                var VIO = new MotionCardWrapper(new VirtualCard());
-
-                MotionExs.Add(1, Motion1);
-                MotionExs.Add(2, VIO);
-
-                //load di do axis
-
-                DiExs.Add(1, new DiEx { Driver = Motion1 });
-
-                DoExs.Add(1, new DoEx { Driver = Motion1 });
-
-                CylinderExs.Add(1, new CylinderEx { Driver1 = Motion1, Driver2 = Motion1 });
-
-                AxisExs.Add(1, new AxisEx { Driver = Motion1 });
-
-                //load station task
-                var station1 = new Station(1, "Station1", this);
-                var testTask1 = new TestTask1(1, "Test1", station1);
-
-                //bind signals
-                if (!FrameworkManager.Ins.IsSimulate)
-                {
-                    // todo : to add signal configs
-                    //estop
-                    DiEstop.Add(2, new DiEx { Driver = Motion1 });
-
-                    //start/stop/reset button
-                    DiStart.Add(1, new DiEx { Driver = Motion1 });
-                    DiStop.Add(1, new DiEx { Driver = Motion1 });
-                    DiReset.Add(1, new DiEx { Driver = Motion1 });
-
-                    //start/stop/reset button lamp
-                    DoLightGreen.Add(1, new DoEx { Driver = Motion1 });
-                    DoLightRed.Add(1, new DoEx { Driver = Motion1 });
-                    DoLightYellow.Add(1, new DoEx { Driver = Motion1 });
-
-                    //lamp
-                    DoLightGreen.Add(2, new DoEx { Driver = Motion1 });
-                    DoLightRed.Add(2, new DoEx { Driver = Motion1 });
-                    DoLightYellow.Add(2, new DoEx { Driver = Motion1 });
-                    DoBuzzer.Add(1, new DoEx { Driver = Motion1 });
-
-
-                    //station pause signals
-                    Stations[1].PauseSignals.Add(1, new DiEx { Driver = Motion1 });
-                }
-            }
-        }
-
 
         public override void Initialize()
         {

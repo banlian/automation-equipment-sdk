@@ -1,9 +1,8 @@
 ﻿namespace Automation.FrameworkExtension.deviceDriver
 {
-    public interface IDeviceControl
+    public interface IDeviceControl<T> where T : IDevice
     {
-        void LoadDevice(IDevice device);
-
+        void LoadDevice(T device);
 
         void UserActivate();
 

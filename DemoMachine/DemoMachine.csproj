@@ -153,12 +153,8 @@
       <Name>Automation.FrameworkUtilityLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Scripts\loading.py" />
-    <Content Include="Scripts\resource.py" />
-    <Content Include="Scripts\test1.py" />
-    <Content Include="Scripts\test2.py" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

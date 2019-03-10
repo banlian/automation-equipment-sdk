@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Automation.FrameworkExtension.common;
 using Automation.FrameworkExtension.motionDriver;
 using Automation.FrameworkExtension.stateMachine;
+using Automation.FrameworkUtilityLib.UtilsFramework;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
 
@@ -18,31 +19,31 @@ namespace Automation.FrameworkScriptExtension.FrameworkScript
         public PyScriptTask(int id, string name, Station station) : base(id, name, station)
         {
             _scriptEngine = Python.CreateEngine();
-                    var paths = _scriptEngine.GetSearchPaths();
+            var paths = _scriptEngine.GetSearchPaths();
             paths.Add(@"C:\Program Files\IronPython 2.7\Lib");
             _scriptEngine.SetSearchPaths(paths);
             _scriptEngine.Runtime.LoadAssembly(Assembly.GetAssembly(typeof(RunningState)));
             _scriptEngine.Runtime.LoadAssembly(Assembly.GetAssembly(typeof(MotionExtensionEx)));
-  
+            _scriptEngine.Runtime.LoadAssembly(Assembly.GetAssembly(typeof(StationTaskExtension)));
+
 
             _scriptScope = _scriptEngine.CreateScope();
             _scriptScope.SetVariable("t", this);
 
-            _scriptFileName = $@".\Scripts\{Name}.py";
+            ScriptFileName = $@".\Scripts\{Name}.py";
         }
 
         private ScriptEngine _scriptEngine;
         private ScriptScope _scriptScope;
         private ScriptSource _scriptSource;
 
-        private string _scriptFileName;
-        //private string _scriptString;
+        public string ScriptFileName { get; }
 
         private DateTime _lastRunDateTime;
 
         protected override int ResetLoop()
         {
-            var scriptFile = File.ReadAllText(_scriptFileName);
+            var scriptFile = File.ReadAllText(ScriptFileName);
             if (string.IsNullOrEmpty(scriptFile))
             {
                 Log($"Load Script Error", LogLevel.Error);
@@ -82,7 +83,7 @@ namespace Automation.FrameworkScriptExtension.FrameworkScript
             if (_scriptSource == null)
             {
                 _lastRunDateTime = DateTime.Now;
-             
+
                 _scriptSource = _scriptEngine.CreateScriptSourceFromString(scriptFile);
                 _scriptSource.Execute(_scriptScope);
             }
@@ -105,7 +106,7 @@ namespace Automation.FrameworkScriptExtension.FrameworkScript
 
         protected override int RunLoop()
         {
-            var scriptFile = File.ReadAllText(_scriptFileName);
+            var scriptFile = File.ReadAllText(ScriptFileName);
             if (string.IsNullOrEmpty(scriptFile))
             {
                 Log($"Load Script Error", LogLevel.Error);
@@ -123,7 +124,7 @@ namespace Automation.FrameworkScriptExtension.FrameworkScript
             }
             else
             {
-                var fileInfo = new FileInfo(_scriptFileName);
+                var fileInfo = new FileInfo(ScriptFileName);
                 if (fileInfo.LastWriteTime > _lastRunDateTime)
                 {
                     _scriptSource = _scriptEngine.CreateScriptSourceFromString(scriptFile);

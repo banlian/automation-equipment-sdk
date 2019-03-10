@@ -8,26 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Automation.FrameworkExtension.deviceDriver;
-using Automation.FrameworkExtension.elementsInterfaces;
-using DeviceMeasureClassLibrary;
+using DeviceCameraLibrary1;
 
-namespace Automation.Base.DeviceMeasureClassLibrary
+namespace Automation.Base.DeviceCameraLibrary1
 {
-    public partial class LaserBaseControl : UserControl, IDeviceControl<ILaser>
+    public partial class CameraBaseControl : UserControl, IDeviceControl<ICamera>
     {
-        public LaserBaseControl()
+        public CameraBaseControl()
         {
             InitializeComponent();
         }
 
-
-        private ILaser _device;
-
-        public void LoadDevice(ILaser device)
+        private ICamera _camera;
+        public void LoadDevice(ICamera device)
         {
-            groupBoxDev.Text = device.ToString();
+            if (device != null)
+            {
+                groupBoxDev.Text = device.ToString();
 
-            _device = device;
+                _camera = device;
+            }
         }
 
         public void UserActivate()
@@ -44,32 +44,41 @@ namespace Automation.Base.DeviceMeasureClassLibrary
         {
             try
             {
-                _device?.Initialize();
+                if (_camera != null)
+                {
+                    _camera.Initialize();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
             try
             {
-                _device?.Terminate();
+                if (_camera != null)
+                {
+                    _camera.Terminate();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void buttonTrigger_Click(object sender, EventArgs e)
+        private void buttonSnap_Click(object sender, EventArgs e)
         {
             try
             {
-                var ret = _device.Measure();
-                UpdateLog(string.Join(",", ret.Select(d => d.ToString("F6"))));
+                if (_camera != null)
+                {
+                    var img = _camera.Snap();
+                    UpdateImage(img);
+                }
             }
             catch (Exception ex)
             {
@@ -78,26 +87,20 @@ namespace Automation.Base.DeviceMeasureClassLibrary
         }
 
 
-        private void UpdateLog(string log)
+        private void UpdateImage(Bitmap img)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string>(UpdateLog), log);
+                Invoke(new Action<Bitmap>(UpdateImage), img);
             }
             else
             {
-                richTextBoxLog.AppendText($"{DateTime.Now.ToString("yyyyMMdd-HHmmss.fff")}: {log}\r\n");
-                richTextBoxLog.ScrollToCaret();
+                pictureBoxImage.Image = img;
+                pictureBoxImage.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
 
-        private void richTextBoxLog_DoubleClick(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("清除记录？", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                richTextBoxLog.Clear();
-                richTextBoxLog.ScrollToCaret();
-            }
-        }
+
+
     }
 }
